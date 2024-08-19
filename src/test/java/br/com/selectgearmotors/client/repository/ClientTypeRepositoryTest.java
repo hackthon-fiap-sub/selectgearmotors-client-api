@@ -3,6 +3,7 @@ package br.com.selectgearmotors.client.repository;
 import br.com.selectgearmotors.client.infrastructure.entity.clienttype.ClientTypeEntity;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientRepository;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientTypeRepository;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,7 +89,7 @@ class ClientTypeRepositoryTest {
         ClientTypeEntity clientType = new ClientTypeEntity();
         clientType.setName("a".repeat(260)); // Nome com 260 caracteres, excedendo o limite de 255
 
-        assertThrows(DataIntegrityViolationException.class, () -> {
+        assertThrows(ConstraintViolationException.class, () -> {
             clientTypeRepository.save(clientType);
         });
     }

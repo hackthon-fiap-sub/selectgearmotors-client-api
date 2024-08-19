@@ -1,10 +1,12 @@
 package br.com.selectgearmotors.client.repository;
 
+import br.com.selectgearmotors.client.application.database.mapper.ClientMapper;
 import br.com.selectgearmotors.client.infrastructure.entity.client.ClientEntity;
 import br.com.selectgearmotors.client.infrastructure.entity.clienttype.ClientTypeEntity;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientRepository;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientTypeRepository;
 import com.github.javafaker.Faker;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +36,8 @@ class ClientRepositoryTest {
     @Autowired
     private ClientTypeRepository clientTypeRepository;
 
+    private ClientMapper clientMapper;
+
     private ClientTypeEntity clientType;
 
     private Faker faker = new Faker();
@@ -55,6 +59,10 @@ class ClientRepositoryTest {
         return ClientEntity.builder()
                 .name(faker.food().vegetable())
                 .code(UUID.randomUUID().toString())
+                .email(faker.internet().emailAddress())
+                .mobile("(34) 97452-6758")
+                .address(faker.address().fullAddress())
+                .dataProcessingConsent(faker.bool().bool())
                 .pic("hhh")
                 .description("Coca-Cola")
                 .clientTypeEntity(clientType)
@@ -77,17 +85,19 @@ class ClientRepositoryTest {
     @Test
     void should_store_a_client() {
         log.info("Setting up test data...");
-        var clientType1 = clientTypeRepository.save(getClientType());
 
-        ClientEntity client = getClient(clientType1);
-        client.setCode(UUID.randomUUID().toString());
+        // Salvar o ClientTypeEntity primeiro para garantir que ele está no banco de dados
+        ClientTypeEntity clientType1 = clientTypeRepository.save(getClientType());
 
-        // Ensure unique code
-        ClientEntity savedClient = clientRepository.save(client);
+        // Agora que o clientType1 foi salvo, podemos associá-lo ao ClientEntity
+        ClientEntity clientEntity = getClient(clientType1);
+
+        // Salvar o ClientEntity, que agora tem uma referência válida ao ClientTypeEntity persistido
+        ClientEntity savedClient = clientRepository.save(clientEntity);
 
         assertThat(savedClient).isNotNull();
         assertThat(savedClient.getId()).isNotNull();
-        assertThat(savedClient.getName()).isEqualTo(client.getName());
+        assertThat(savedClient.getName()).isEqualTo(clientEntity.getName());
     }
 
     @Test
@@ -175,7 +185,7 @@ class ClientRepositoryTest {
         clientEntity.setPic("hhh");
         clientEntity.setDescription("Coca-Cola");
 
-        assertThrows(DataIntegrityViolationException.class, () -> {
+        assertThrows(ConstraintViolationException.class, () -> {
             clientRepository.save(clientEntity);
         });
     }
