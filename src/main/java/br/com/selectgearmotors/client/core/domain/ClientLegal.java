@@ -1,14 +1,14 @@
 package br.com.selectgearmotors.client.core.domain;
 
-import br.com.selectgearmotors.client.infrastructure.entity.client.ClientEntity;
 import br.com.selectgearmotors.client.infrastructure.entity.domain.AuditDomain;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @EqualsAndHashCode(callSuper = false)
 @Schema(description = "ClientLegalEntity", requiredProperties = {"companyId"})
 public class ClientLegal extends AuditDomain {

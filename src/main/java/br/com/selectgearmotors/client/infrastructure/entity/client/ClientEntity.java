@@ -89,7 +89,7 @@ public class ClientEntity extends AuditDomain {
     @Schema(description = "Restaurant of the User.",
             example = "1", ref = "ClientCategoryEntity")
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "client_type_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ClientTypeEntity clientTypeEntity;

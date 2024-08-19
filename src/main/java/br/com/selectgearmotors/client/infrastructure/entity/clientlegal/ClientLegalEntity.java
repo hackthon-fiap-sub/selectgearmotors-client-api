@@ -5,12 +5,15 @@ import br.com.selectgearmotors.client.infrastructure.entity.domain.AuditDomain;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Entity
 @Table(name = "tb_client_legal", schema = "client")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Schema(description = "ClientLegalEntity", requiredProperties = {"companyId"})
 public class ClientLegalEntity extends AuditDomain {
@@ -24,6 +27,7 @@ public class ClientLegalEntity extends AuditDomain {
 
     @Schema(description = "CNPJ number of the Client.", example = "12.345.678/0001-00", requiredMode = Schema.RequiredMode.REQUIRED)
     @Column(name = "company_id")
+    @Size(min = 1, max = 14)
     private String companyId;
 
     @Schema(description = "Client of the User.",
