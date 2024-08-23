@@ -4,12 +4,19 @@ import br.com.selectgearmotors.client.application.api.dto.request.ClientTypeRequ
 import br.com.selectgearmotors.client.application.api.mapper.ClientTypeApiMapper;
 import br.com.selectgearmotors.client.core.domain.ClientType;
 import br.com.selectgearmotors.client.core.service.ClientTypeService;
+import br.com.selectgearmotors.client.factory.ObjectFactory;
+import br.com.selectgearmotors.client.infrastructure.entity.client.ClientEntity;
+import br.com.selectgearmotors.client.infrastructure.entity.clienttype.ClientTypeEntity;
+import br.com.selectgearmotors.client.infrastructure.repository.ClientRepository;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientTypeRepository;
 import br.com.selectgearmotors.client.util.JsonUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
@@ -35,6 +42,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource("classpath:application-test.properties")
 class ClientTypeResourcesTest {
 
+    private static final Logger log = LoggerFactory.getLogger(ClientTypeResourcesTest.class);
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -49,44 +58,45 @@ class ClientTypeResourcesTest {
 
     private ClientType clientType;
 
-    private Long productCategoryId;
+    private Long clientTypeId;
 
     @Mock
     private ClientTypeApiMapper clientTypeApiMapper;
 
-    private ClientType getProductCategory() {
+    private ClientType getClientType() {
         return ClientType.builder()
-                .name("Bebida")
+                .name("Pragmatico")
                 .build();
     }
 
-    private ClientType getProductCategoryUpdate() {
+    private ClientType getClientTypeUpdate() {
         return ClientType.builder()
-                .name("Bebida1")
+                .id(1L)
+                .name("Pragmatico")
                 .build();
     }
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         repository.deleteAll();
-        this.clientType = service.save(getProductCategory());
-        this.productCategoryId = clientType.getId();
+
+        ClientType clientTypeSaved = service.save(getClientType());
+        this.clientType = clientTypeSaved;
+        this.clientTypeId = clientTypeSaved.getId();
     }
 
-    @Disabled
+    @Test
     void findsTaskById() throws Exception {
-        Long id = clientType.getId();
-        mockMvc.perform(get("/v1/product-categories/{id}", id))
+        mockMvc.perform(get("/v1/client-types/{id}", this.clientTypeId))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Bebida"));
+                .andExpect(jsonPath("$.name").value("Pragmatico"));
     }
 
-    @Disabled
-    void getAll() throws Exception
-    {
+    @Test
+    void getAll() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/v1/product-categories")
+                        .get("/v1/client-types")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -94,12 +104,12 @@ class ClientTypeResourcesTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").exists());
     }
 
-    @Disabled
+    @Test
     void getAll_isNull() throws Exception {
         repository.deleteAll();
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .get("/v1/product-categories")
+                        .get("/v1/client-types")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNoContent())
@@ -109,12 +119,12 @@ class ClientTypeResourcesTest {
         assertThat(responseContent).isEmpty();
     }
 
-    @Disabled
+    @Test
     void create() throws Exception {
-        String create = JsonUtil.getJson(getProductCategory());
+        String create = JsonUtil.getJson(this.clientType);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/v1/product-categories")
+                        .post("/v1/client-types")
                         .content(create)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -122,11 +132,11 @@ class ClientTypeResourcesTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
     }
 
-    @Disabled
+    @Test
     void create_isNull() throws Exception {
         String create = JsonUtil.getJson(new ClientType());
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .post("/v1/product-categories")
+                        .post("/v1/client-types")
                         .content(create)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -137,7 +147,7 @@ class ClientTypeResourcesTest {
         assertThat(responseContent).isEmpty();
     }
 
-    @Disabled
+    @Test
     void testSave_Exception() throws Exception {
         ClientTypeRequest clientTypeRequest = new ClientTypeRequest();
         String create = JsonUtil.getJson(clientTypeRequest);
@@ -145,7 +155,7 @@ class ClientTypeResourcesTest {
         when(clientTypeApiMapper.fromRequest(clientTypeRequest)).thenThrow(new RuntimeException("Client não encontroado ao cadastrar"));
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .post("/v1/product-categories")
+                        .post("/v1/client-types")
                         .content(create)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -156,28 +166,25 @@ class ClientTypeResourcesTest {
         assertThat(responseContent).isEmpty();
     }
 
-    @Disabled
+    @Test
     void update() throws Exception {
-        repository.deleteAll();
-        ClientType savedClientType = service.save(getProductCategory());
-        Long id = savedClientType.getId();
-        String update = JsonUtil.getJson(getProductCategoryUpdate());
+        String update = JsonUtil.getJson(this.clientType);
 
-        mockMvc.perform( MockMvcRequestBuilders
-                        .put("/v1/product-categories/{id}", id)
+        mockMvc.perform(MockMvcRequestBuilders
+                        .put("/v1/client-types/{id}", this.clientTypeId)
                         .content(update)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Bebida1"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Pragmatico"));
     }
 
-    @Disabled
+    @Test
     void update_isNull() throws Exception {
         String update = JsonUtil.getJson(new ClientTypeRequest());
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .put("/v1/product-categories/{id}", productCategoryId)
+                        .put("/v1/client-types/{id}", this.clientTypeId)
                         .content(update)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -188,7 +195,7 @@ class ClientTypeResourcesTest {
         assertThat(responseContent).isEmpty();
     }
 
-    @Disabled
+    @Test
     void testUpdate_Exception() throws Exception {
         ClientTypeRequest product = new ClientTypeRequest();
         String create = JsonUtil.getJson(product);
@@ -196,7 +203,7 @@ class ClientTypeResourcesTest {
         when(clientTypeApiMapper.fromRequest(product)).thenThrow(new RuntimeException("Produto não encontroado ao atualizar"));
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .put("/v1/product-categories/{id}", productCategoryId)
+                        .put("/v1/client-types/{id}", this.clientTypeId)
                         .content(create)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -209,13 +216,13 @@ class ClientTypeResourcesTest {
 
     @Disabled
     void delete() throws Exception {
-        mockMvc.perform( MockMvcRequestBuilders.delete("/v1/product-categories/{id}", 1) )
+        mockMvc.perform(MockMvcRequestBuilders.delete("/v1/client-types/{id}", 1))
                 .andExpect(status().isNoContent());
     }
 
     @Disabled
     void findByCode_productIsNull() throws Exception {
-        MvcResult result = mockMvc.perform(get("/v1/product-categories/{id}", 99l))
+        MvcResult result = mockMvc.perform(get("/v1/client-types/{id}", 99l))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -229,7 +236,7 @@ class ClientTypeResourcesTest {
         ClientTypeRequest clientTypeRequest = new ClientTypeRequest();
         when(clientTypeApiMapper.fromRequest(clientTypeRequest)).thenThrow(new RuntimeException("Produto não encontrado ao buscar por código"));
 
-        MvcResult result = mockMvc.perform(get("/v1/product-categories/{id}", 99L))
+        MvcResult result = mockMvc.perform(get("/v1/client-types/{id}", 99L))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();

@@ -25,34 +25,34 @@
         <sonar.exclusions>
             **/controller/debug/**/*,
             src/test/**/*,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/RunApplication.java,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/application/api/exception/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/application/api/dto/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/application/api/mapper/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/application/database/mapper/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/commons/config/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/commons/util/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/commons/exception/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/core/utils/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/core/ports/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/commons/Constants.java,
+            src/main/java/br/com/selectgearmotors/client/RunApplication.java,
+            src/main/java/br/com/selectgearmotors/client/application/api/exception/**,
+            src/main/java/br/com/selectgearmotors/client/application/api/dto/**,
+            src/main/java/br/com/selectgearmotors/client/application/api/mapper/**,
+            src/main/java/br/com/selectgearmotors/client/application/database/mapper/**,
+            src/main/java/br/com/selectgearmotors/client/commons/config/**,
+            src/main/java/br/com/selectgearmotors/client/commons/util/**,
+            src/main/java/br/com/selectgearmotors/client/commons/exception/**,
+            src/main/java/br/com/selectgearmotors/client/core/utils/**,
+            src/main/java/br/com/selectgearmotors/client/core/ports/**,
+            src/main/java/br/com/selectgearmotors/client/commons/Constants.java,
             pom.xml
         </sonar.exclusions>
         <sonar.coverage.exclusions>
             pom.xml,\
             **/controller/debug/**/*,\
             src/test/**/*,\
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/RunApplication.java,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/application/api/exception/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/application/api/dto/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/application/api/mapper/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/application/database/mapper/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/commons/config/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/commons/util/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/commons/exception/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/core/utils/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/core/ports/**,
-            src/main/java/br/com/sevenfood/client/sevenfoodclientapi/commons/Constants.java,
+            src/main/java/br/com/selectgearmotors/client/RunApplication.java,
+            src/main/java/br/com/selectgearmotors/client/application/api/exception/**,
+            src/main/java/br/com/selectgearmotors/client/application/api/dto/**,
+            src/main/java/br/com/selectgearmotors/client/application/api/mapper/**,
+            src/main/java/br/com/selectgearmotors/client/application/database/mapper/**,
+            src/main/java/br/com/selectgearmotors/client/commons/config/**,
+            src/main/java/br/com/selectgearmotors/client/commons/util/**,
+            src/main/java/br/com/selectgearmotors/client/commons/exception/**,
+            src/main/java/br/com/selectgearmotors/client/core/utils/**,
+            src/main/java/br/com/selectgearmotors/client/core/ports/**,
+            src/main/java/br/com/selectgearmotors/client/commons/Constants.java,
         </sonar.coverage.exclusions>
         <sonar.dependencyCheck.basePath>${project.basedir}/owasp-dependency-check-logs</sonar.dependencyCheck.basePath>
         <sonar.dependencyCheck.htmlReportPath>${sonar.dependencyCheck.basePath}/dependency-check-report.html

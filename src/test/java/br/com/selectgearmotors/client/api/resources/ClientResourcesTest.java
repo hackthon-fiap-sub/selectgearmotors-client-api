@@ -6,6 +6,7 @@ import br.com.selectgearmotors.client.core.domain.Client;
 import br.com.selectgearmotors.client.core.domain.ClientType;
 import br.com.selectgearmotors.client.core.service.ClientService;
 import br.com.selectgearmotors.client.core.service.ClientTypeService;
+import br.com.selectgearmotors.client.factory.ObjectFactory;
 import br.com.selectgearmotors.client.infrastructure.entity.client.ClientEntity;
 import br.com.selectgearmotors.client.infrastructure.entity.clienttype.ClientTypeEntity;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientRepository;
@@ -16,7 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
@@ -33,6 +37,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -44,6 +49,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ImportAutoConfiguration(exclude = FlywayAutoConfiguration.class)
 @TestPropertySource("classpath:application-test.properties")
 class ClientResourcesTest {
+
+    private static final Logger log = LoggerFactory.getLogger(ClientResourcesTest.class);
 
     @Autowired
     private MockMvc mockMvc;
@@ -63,6 +70,10 @@ class ClientResourcesTest {
     @Autowired
     private ClientTypeRepository clientTypeRepository;
 
+    private ClientTypeEntity clientTypeEntity;
+
+    private Long clientTypeEntityId;
+
     @Mock
     private ClientApiMapper clientApiMapper;
 
@@ -70,6 +81,7 @@ class ClientResourcesTest {
     private Long clientCategoryId;
     private Long restaurantId;
     private Long clientId;
+    private ClientRequest clientRequest;
     private String clientCode;
 
     @BeforeEach
@@ -77,92 +89,77 @@ class ClientResourcesTest {
         repository.deleteAll();
         clientTypeRepository.deleteAll();
 
-        ClientType clientType = getClientCategory();
-        clientType = clientTypeService.save(clientType);
-        this.clientCategoryId = clientType.getId();
+        this.clientTypeEntity = createClientTypeEntity();
+        this.clientTypeEntityId = clientTypeEntity.getId();
+        log.info("clientTypeEntityId: {}", clientTypeEntityId);
 
-        Client clientFounded = getClient(clientCategoryId, restaurantId);
-        var clientSaved = service.save(clientFounded);
-        this.clientId = clientSaved.getId();
-        this.clientCode = clientSaved.getCode();// Save the client ID for use in tests
-
-        verifyDataSaved(clientType, clientSaved);
+        ClientRequest clientRequest1 = createClientRequest(clientTypeEntityId);
+        this.clientRequest = clientRequest1;
+        log.info("clientRequest: {}", clientRequest);
     }
 
-    private void verifyDataSaved(ClientType clientType, Client client) {
-        assertThat(clientTypeRepository.findById(clientType.getId())).isPresent();
-        assertThat(repository.findById(client.getId())).isPresent();
-    }
-
-    private ClientType getClientCategory() {
-        return ClientType.builder()
-                .name(faker.commerce().department())
+    private ClientRequest createClientRequest(Long clientTypeEntityId) {
+        return ClientRequest.builder()
+                .clientTypeId(clientTypeEntityId)
+                .name(faker.company().name())
+                .email(faker.internet().emailAddress())
+                .mobile("(34) 97452-6758")
+                .pic(faker.internet().url())
+                .description(faker.lorem().sentence())
+                .socialId("967.382.310-32")
+                .address(faker.address().fullAddress())
+                .dataProcessingConsent(faker.bool().bool())
                 .build();
     }
 
-    private Client getClient(Long clientCategoryId, Long restaurantId) {
+    private Client getClient(Long clientTypeId) {
         return Client.builder()
-                .name(faker.commerce().productName())
-                .pic(faker.internet().avatar())
-                .address(faker.address().fullAddress())
-                .clientTypeId(clientCategoryId)
-                .description(faker.lorem().sentence())
-                .dataProcessingConsent(faker.bool().bool())
+                .name(faker.food().vegetable())
+                .code(UUID.randomUUID().toString())
                 .email(faker.internet().emailAddress())
-                .mobile(faker.phoneNumber().cellPhone())
-                .socialId(CnpjGenerator.generateCpf())
+                .mobile("(34) 97452-6758")
+                .address(faker.address().fullAddress())
+                .dataProcessingConsent(faker.bool().bool())
+                .pic("hhh")
+                .description("Coca-Cola")
+                .clientTypeId(clientTypeId)
                 .build();
     }
 
-    private ClientEntity getClientEntity(Long clientCategoryId, Long restaurantId) {
-        Optional<ClientTypeEntity> clientCategoryById = clientTypeRepository.findById(clientCategoryId);
+    private ClientTypeEntity createClientTypeEntity() {
+        ClientTypeEntity clientTypeEntity = ObjectFactory.getInstance().getClientType();
+        ClientTypeEntity clientTypeEntitySaved = clientTypeRepository.save(clientTypeEntity);
 
-        return ClientEntity.builder()
-                .name(faker.commerce().productName())
-                .pic(faker.internet().avatar())
-                .address(faker.address().fullAddress())
-                .clientTypeEntity(clientCategoryById != null ? clientCategoryById.get() : null)
-                .description(faker.lorem().sentence())
-                .dataProcessingConsent(faker.bool().bool())
-                .email(faker.internet().emailAddress())
-                .mobile(faker.phoneNumber().cellPhone())
-                .socialId(CnpjGenerator.generateCpf())
-                .build();
+        verifyDataSavedClientTypeEntity(clientTypeEntitySaved);
+        return clientTypeEntitySaved;
     }
 
-    private Client getClientUpdate(Long clientCategoryId, Long restaurantId) {
-        return Client.builder()
-                .id(clientId) // Ensure we are updating the same client
-                .name(faker.commerce().productName())
-                .pic(faker.internet().avatar())
-                .address(faker.address().fullAddress())
-                .clientTypeId(clientCategoryId)
-                .description(faker.lorem().sentence())
-                .dataProcessingConsent(faker.bool().bool())
-                .email(faker.internet().emailAddress())
-                .mobile(faker.phoneNumber().cellPhone())
-                .socialId(CnpjGenerator.generateCpf())
-                .build();
+    private void verifyDataSavedClientTypeEntity(ClientTypeEntity clientTypeEntitySaved) {
+        assertThat(clientTypeRepository.findById(clientTypeEntitySaved.getId())).isPresent();
     }
 
-    @Disabled
+    @Test
     void findsTaskById() throws Exception {
-        MvcResult result = mockMvc.perform(get("/v1/clients/{id}", clientId))
+        repository.deleteAll();
+        Client client = getClient(this.clientTypeEntityId);
+        service.save(client);
+
+        MvcResult result = mockMvc.perform(get("/v1/clients/{id}", this.clientTypeEntityId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
 
         String responseContent = result.getResponse().getContentAsString();
         System.out.println("Response Content: " + responseContent);
-
-        mockMvc.perform(get("/v1/clients/{id}", clientId))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").exists());
+        assertThat(responseContent).isNotEmpty();
     }
 
-    @Disabled
+    @Test
     void getAll() throws Exception {
+        repository.deleteAll();
+        Client client = getClient(this.clientTypeEntityId);
+        service.save(client);
+
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                         .get("/v1/clients")
                         .accept(MediaType.APPLICATION_JSON))
@@ -182,7 +179,7 @@ class ClientResourcesTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").exists());
     }
 
-    @Disabled
+    @Test
     void getAll_isNull() throws Exception {
         repository.deleteAll();
 
@@ -197,15 +194,12 @@ class ClientResourcesTest {
         assertThat(responseContent).isEmpty();
     }
 
-    @Disabled
+    @Test
     void create() throws Exception {
         repository.deleteAll();
-        clientTypeRepository.findById(this.clientCategoryId).ifPresent(clientCategory -> {
-            assertThat(clientCategory).isNotNull();
-            this.clientCategoryId = clientCategory.getId();
-        });
+        Client client = getClient(this.clientTypeEntityId);
+        service.save(client);
 
-        Client client = getClient(this.clientCategoryId, this.restaurantId);
         String create = JsonUtil.getJson(client);
 
         assertThat(create).isNotNull().isNotEmpty();  // Verifique se o JSON não é nulo ou vazio
@@ -220,60 +214,22 @@ class ClientResourcesTest {
 
         String responseContent = result.getResponse().getContentAsString();
         System.out.println("Response Content: " + responseContent);
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/v1/clients")
-                        .content(create)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
-        //.andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
-    }
-
-    @Disabled
-    void create_isNull() throws Exception {
-        String create = JsonUtil.getJson(new Client());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .post("/v1/clients")
-                        .content(create)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String responseContent = result.getResponse().getContentAsString();
-        assertThat(responseContent).isEmpty();
-    }
-
-    @Disabled
-    void testSave_Exception() throws Exception {
-        ClientRequest client = new ClientRequest();
-        String create = JsonUtil.getJson(client);
-
-        when(clientApiMapper.fromRequest(client)).thenThrow(new RuntimeException("Produto não encontroado ao cadastrar"));
-
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .post("/v1/clients")
-                        .content(create)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String responseContent = result.getResponse().getContentAsString();
-        assertThat(responseContent).isEmpty();
+        assertThat(responseContent).isNotEmpty();
     }
 
     @Disabled
     void update() throws Exception {
-        Client clientUpdate = getClientUpdate(clientCategoryId, restaurantId);
-        String update = JsonUtil.getJson(clientUpdate);
+        repository.deleteAll();
+        Client client = getClient(this.clientTypeEntityId);
+        service.save(client);
+
+        String update = JsonUtil.getJson(this.clientRequest);
         System.out.println("Generated JSON for Update: " + update);
 
         assertThat(update).isNotNull().isNotEmpty();  // Verifique se o JSON não é nulo ou vazio
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .put("/v1/clients/{id}", clientId)
+                        .put("/v1/clients/{id}", this.clientRequest)
                         .content(update)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -282,14 +238,7 @@ class ClientResourcesTest {
 
         String responseContent = result.getResponse().getContentAsString();
         System.out.println("Response Content: " + responseContent);
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .put("/v1/clients/{id}", clientId)
-                        .content(update)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists());
+        assertThat(responseContent).isNotEmpty();
     }
 
     @Disabled

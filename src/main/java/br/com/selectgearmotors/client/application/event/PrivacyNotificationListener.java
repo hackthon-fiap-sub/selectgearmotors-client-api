@@ -33,7 +33,7 @@ public class PrivacyNotificationListener {
         this.requestService = requestService;
     }
 
-    @SqsListener("${aws.privacyNotification.queueName}")
+    //@SqsListener("${aws.privacyNotification.queueName}")
     public void listen(Message<?> message, Acknowledgement acknowledgement) {
         try {
             log.info("Message received from queue: {}", message);

@@ -16,7 +16,7 @@ public class RequestService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${api.gateway.url}")
+    @Value("${api.gateway.url:https://umtpix5m64.execute-api.us-east-1.amazonaws.com/Prod}")
     private String apiGatewayUrl;
 
     public RequestService(RestTemplate restTemplate) {
