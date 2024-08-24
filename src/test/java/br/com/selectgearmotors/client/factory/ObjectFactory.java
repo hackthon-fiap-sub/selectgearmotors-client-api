@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class ObjectFactory {
     public static ObjectFactory instance;
-    private Faker faker = new Faker();
+    private final Faker faker = new Faker();
 
     private ObjectFactory() {}
 

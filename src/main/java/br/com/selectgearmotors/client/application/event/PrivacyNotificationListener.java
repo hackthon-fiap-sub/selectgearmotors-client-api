@@ -6,13 +6,12 @@ import br.com.selectgearmotors.client.application.event.dto.SNSNotification;
 import br.com.selectgearmotors.client.core.domain.Client;
 import br.com.selectgearmotors.client.core.ports.out.ClientRepositoryPort;
 import br.com.selectgearmotors.client.core.utils.JsonUtil;
-import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.listener.acknowledgement.Acknowledgement;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.messaging.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 @Log4j2

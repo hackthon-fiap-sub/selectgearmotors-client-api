@@ -4,10 +4,6 @@ import br.com.selectgearmotors.client.application.api.dto.request.ClientTypeRequ
 import br.com.selectgearmotors.client.application.api.mapper.ClientTypeApiMapper;
 import br.com.selectgearmotors.client.core.domain.ClientType;
 import br.com.selectgearmotors.client.core.service.ClientTypeService;
-import br.com.selectgearmotors.client.factory.ObjectFactory;
-import br.com.selectgearmotors.client.infrastructure.entity.client.ClientEntity;
-import br.com.selectgearmotors.client.infrastructure.entity.clienttype.ClientTypeEntity;
-import br.com.selectgearmotors.client.infrastructure.repository.ClientRepository;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientTypeRepository;
 import br.com.selectgearmotors.client.util.JsonUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;

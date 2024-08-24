@@ -3,15 +3,12 @@ package br.com.selectgearmotors.client.api.resources;
 import br.com.selectgearmotors.client.application.api.dto.request.ClientRequest;
 import br.com.selectgearmotors.client.application.api.mapper.ClientApiMapper;
 import br.com.selectgearmotors.client.core.domain.Client;
-import br.com.selectgearmotors.client.core.domain.ClientType;
 import br.com.selectgearmotors.client.core.service.ClientService;
 import br.com.selectgearmotors.client.core.service.ClientTypeService;
 import br.com.selectgearmotors.client.factory.ObjectFactory;
-import br.com.selectgearmotors.client.infrastructure.entity.client.ClientEntity;
 import br.com.selectgearmotors.client.infrastructure.entity.clienttype.ClientTypeEntity;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientRepository;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientTypeRepository;
-import br.com.selectgearmotors.client.util.CnpjGenerator;
 import br.com.selectgearmotors.client.util.JsonUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
@@ -33,11 +30,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -92,10 +87,6 @@ class ClientResourcesTest {
         this.clientTypeEntity = createClientTypeEntity();
         this.clientTypeEntityId = clientTypeEntity.getId();
         log.info("clientTypeEntityId: {}", clientTypeEntityId);
-
-        ClientRequest clientRequest1 = createClientRequest(clientTypeEntityId);
-        this.clientRequest = clientRequest1;
-        log.info("clientRequest: {}", clientRequest);
     }
 
     private ClientRequest createClientRequest(Long clientTypeEntityId) {
@@ -142,9 +133,10 @@ class ClientResourcesTest {
     void findsTaskById() throws Exception {
         repository.deleteAll();
         Client client = getClient(this.clientTypeEntityId);
-        service.save(client);
+        Client saved = service.save(client);
+        log.info("Update: {}", saved);
 
-        MvcResult result = mockMvc.perform(get("/v1/clients/{id}", this.clientTypeEntityId))
+        MvcResult result = mockMvc.perform(get("/v1/clients/{id}", saved.getId()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -196,11 +188,11 @@ class ClientResourcesTest {
 
     @Test
     void create() throws Exception {
-        repository.deleteAll();
-        Client client = getClient(this.clientTypeEntityId);
-        service.save(client);
+        ClientRequest clientRequest1 = createClientRequest(clientTypeEntityId);
+        this.clientRequest = clientRequest1;
+        log.info("clientRequest: {}", clientRequest);
 
-        String create = JsonUtil.getJson(client);
+        String create = JsonUtil.getJson(this.clientRequest);
 
         assertThat(create).isNotNull().isNotEmpty();  // Verifique se o JSON não é nulo ou vazio
 
@@ -217,19 +209,19 @@ class ClientResourcesTest {
         assertThat(responseContent).isNotEmpty();
     }
 
-    @Disabled
+    @Test
     void update() throws Exception {
         repository.deleteAll();
         Client client = getClient(this.clientTypeEntityId);
-        service.save(client);
+        Client saved = service.save(client);
 
-        String update = JsonUtil.getJson(this.clientRequest);
+        String update = JsonUtil.getJson(saved);
         System.out.println("Generated JSON for Update: " + update);
 
         assertThat(update).isNotNull().isNotEmpty();  // Verifique se o JSON não é nulo ou vazio
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .put("/v1/clients/{id}", this.clientRequest)
+                        .put("/v1/clients/{id}", saved.getId())
                         .content(update)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -241,52 +233,15 @@ class ClientResourcesTest {
         assertThat(responseContent).isNotEmpty();
     }
 
-    @Disabled
-    void update_isNull() throws Exception {
-        String update = JsonUtil.getJson(new Client());
-
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .put("/v1/clients/{id}", clientId)
-                        .content(update)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String responseContent = result.getResponse().getContentAsString();
-        assertThat(responseContent).isEmpty();
-    }
-
-    @Disabled
-    void testUpdate_Exception() throws Exception {
-        ClientRequest client = new ClientRequest();
-        String create = JsonUtil.getJson(client);
-
-        when(clientApiMapper.fromRequest(client)).thenThrow(new RuntimeException("Produto não encontroado ao atualizar"));
-
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .put("/v1/clients/{id}", clientId)
-                        .content(create)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String responseContent = result.getResponse().getContentAsString();
-        assertThat(responseContent).isEmpty();
-    }
-
-    @Disabled
+    @Test
     void delete() throws Exception {
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/v1/clients/{id}", clientId))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/v1/clients/{id}", this.clientTypeEntityId))
                 .andExpect(status().isNoContent())
                 .andReturn();
 
         String responseContent = result.getResponse().getContentAsString();
         System.out.println("Response Content: " + responseContent);
-
-        mockMvc.perform(MockMvcRequestBuilders.delete("/v1/clients/{id}", clientId))
-                .andExpect(status().isNoContent());
+        assertThat(responseContent).isEmpty();
     }
 
     @Disabled

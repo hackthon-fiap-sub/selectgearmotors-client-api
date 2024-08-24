@@ -64,7 +64,7 @@
         <sonar.test.inclusions>src/test/**/*</sonar.test.inclusions>
         <sonar.tests>src</sonar.tests>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
-        <sonar.organization>fiapg70</sonar.organization>
+        <sonar.organization>hackthon-fiap-sub</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
     <dependencies>
