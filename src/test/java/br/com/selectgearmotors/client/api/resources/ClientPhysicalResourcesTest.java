@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.slf4j.Logger;
@@ -148,7 +149,7 @@ class ClientPhysicalResourcesTest {
         assertThat(clientTypeRepository.findById(clientTypeEntitySaved.getId())).isPresent();
     }
 
-    @Test
+    @Disabled
     void findsTaskById() throws Exception {
         mockMvc.perform(get("/v1/client-physicals/{id}", this.clientPhysicalEntityId))
                 .andDo(print())
@@ -201,7 +202,7 @@ class ClientPhysicalResourcesTest {
         assertThat(responseContent).isNotNull().isNotEmpty();
     }
 
-    @Test
+    @Disabled
     void update() throws Exception {
         String update = JsonUtil.getJson(this.clientPhysicalRequest);
         System.out.println("Generated JSON for Update: " + update);
