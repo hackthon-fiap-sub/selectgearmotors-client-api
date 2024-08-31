@@ -32,19 +32,19 @@ public class ClientResources {
     private final FindByIdClientPort findByIdClientPort;
     private final FindClientsPort findClientsPort;
     private final UpdateClientPort updateClientPort;
-    private final ClientApiMapper productApiMapper;
+    private final ClientApiMapper clientApiMapper;
 
     @Autowired
-    public ClientResources(CreateClientPort createClientPort, DeleteClientPort deleteClientPort, FindByIdClientPort findByIdClientPort, FindClientsPort findClientsPort, UpdateClientPort updateClientPort, ClientApiMapper productApiMapper) {
+    public ClientResources(CreateClientPort createClientPort, DeleteClientPort deleteClientPort, FindByIdClientPort findByIdClientPort, FindClientsPort findClientsPort, UpdateClientPort updateClientPort, ClientApiMapper clientApiMapper) {
         this.createClientPort = createClientPort;
         this.deleteClientPort = deleteClientPort;
         this.findByIdClientPort = findByIdClientPort;
         this.findClientsPort = findClientsPort;
         this.updateClientPort = updateClientPort;
-        this.productApiMapper = productApiMapper;
+        this.clientApiMapper = clientApiMapper;
     }
 
-    @Operation(summary = "Create a new Client", tags = {"products", "post"})
+    @Operation(summary = "Create a new Client", tags = {"clients", "post"})
     @ApiResponse(responseCode = "201", content = {
             @Content(schema = @Schema(implementation = ClientResources.class), mediaType = "application/json")})
     @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})
@@ -52,19 +52,19 @@ public class ClientResources {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ClientResponse> save(@Valid @RequestBody ClientRequest request) {
         log.info("Chegada do objeto para ser salvo {}", request);
-        Client client = productApiMapper.fromRequest(request);
+        Client client = clientApiMapper.fromRequest(request);
         Client saved = createClientPort.save(client);
         if (saved == null) {
             throw new ResourceFoundException("Produto não encontroado ao cadastrar");
         }
 
-        ClientResponse clientResponse = productApiMapper.fromEntity(saved);
+        ClientResponse clientResponse = clientApiMapper.fromEntity(saved);
         URI location = RestUtils.getUri(clientResponse.getId());
 
         return ResponseEntity.created(location).body(clientResponse);
     }
 
-    @Operation(summary = "Update a Client by Id", tags = {"products", "put"})
+    @Operation(summary = "Update a Client by Id", tags = {"clients", "put"})
     @ApiResponse(responseCode = "200", content = {
             @Content(schema = @Schema(implementation = ClientResources.class), mediaType = "application/json")})
     @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})
@@ -73,17 +73,17 @@ public class ClientResources {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ClientResponse> update(@PathVariable("id") Long id, @Valid @RequestBody ClientRequest request) {
         log.info("Chegada do objeto para ser alterado {}", request);
-        var product = productApiMapper.fromRequest(request);
-        Client updated = updateClientPort.update(id, product);
+        var client = clientApiMapper.fromRequest(request);
+        Client updated = updateClientPort.update(id, client);
         if (updated == null) {
             throw new ResourceFoundException("Produto não encontroado ao atualizar");
         }
 
-        ClientResponse clientResponse = productApiMapper.fromEntity(updated);
+        ClientResponse clientResponse = clientApiMapper.fromEntity(updated);
         return ResponseEntity.ok(clientResponse);
     }
 
-    @Operation(summary = "Retrieve all Client", tags = {"products", "get", "filter"})
+    @Operation(summary = "Retrieve all Client", tags = {"clients", "get", "filter"})
     @ApiResponse(responseCode = "200", content = {
             @Content(schema = @Schema(implementation = ClientResources.class), mediaType = "application/json")})
     @ApiResponse(responseCode = "204", description = "There are no Associations", content = {
@@ -92,8 +92,8 @@ public class ClientResources {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ClientResponse>> findAll() {
-        List<Client> productList = findClientsPort.findAll();
-        List<ClientResponse> clientResponse = productApiMapper.map(productList);
+        List<Client> clientList = findClientsPort.findAll();
+        List<ClientResponse> clientResponse = clientApiMapper.map(clientList);
         return clientResponse.isEmpty() ?
                 ResponseEntity.noContent().build() :
                 ResponseEntity.ok(clientResponse);
@@ -102,42 +102,42 @@ public class ClientResources {
     @Operation(
             summary = "Retrieve a Client by Id",
             description = "Get a Client object by specifying its id. The response is Association object with id, title, description and published status.",
-            tags = {"products", "get"})
+            tags = {"clients", "get"})
     @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ClientResources.class), mediaType = "application/json")})
     @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ClientResponse> findOne(@PathVariable("id") Long id) {
-        Client productSaved = findByIdClientPort.findById(id);
-        if (productSaved == null) {
+        Client clientSaved = findByIdClientPort.findById(id);
+        if (clientSaved == null) {
             throw new ResourceFoundException("Produto não encontrado ao buscar por id");
         }
 
-        ClientResponse clientResponse = productApiMapper.fromEntity(productSaved);
+        ClientResponse clientResponse = clientApiMapper.fromEntity(clientSaved);
         return ResponseEntity.ok(clientResponse);
     }
 
     @Operation(
             summary = "Retrieve a Client by Id",
             description = "Get a Client object by specifying its id. The response is Association object with id, title, description and published status.",
-            tags = {"products", "get"})
+            tags = {"clients", "get"})
     @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ClientResources.class), mediaType = "application/json")})
     @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})
     @GetMapping("/code/{code}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ClientResponse> findByCode(@PathVariable("code") String code) {
-        Client productSaved = findByIdClientPort.findByCode(code);
-        if (productSaved == null) {
+        Client clientSaved = findByIdClientPort.findByCode(code);
+        if (clientSaved == null) {
             throw new ResourceFoundException("Produto não encontrado ao buscar por código");
         }
 
-        ClientResponse clientResponse = productApiMapper.fromEntity(productSaved);
+        ClientResponse clientResponse = clientApiMapper.fromEntity(clientSaved);
         return ResponseEntity.ok(clientResponse);
     }
 
-    @Operation(summary = "Delete a Client by Id", tags = {"producttrus", "delete"})
+    @Operation(summary = "Delete a Client by Id", tags = {"clienttrus", "delete"})
     @ApiResponse(responseCode = "204", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})
     @DeleteMapping(path = "/{id}")

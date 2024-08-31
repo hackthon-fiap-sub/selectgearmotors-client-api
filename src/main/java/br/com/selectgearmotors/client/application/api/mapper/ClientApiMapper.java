@@ -27,6 +27,7 @@ public interface ClientApiMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "code", source = "code")
     @Mapping(target = "socialId", source = "socialId")
+    @Mapping(target = "mobile", source = "mobile")
     ClientResponse fromEntity(Client client);
 
     List<ClientResponse> map(List<Client> clients);

@@ -46,6 +46,6 @@ public class ClientResponse implements Serializable {
 
     private String socialId; //CPF
 
-    private ClientResponse clientResponse;
+    private String mobile;
 
 }
