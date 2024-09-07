@@ -1,6 +1,8 @@
 create table client.tb_client_legal (
     id bigserial not null,
+    social_name varchar(255) not null,
     company_id VARCHAR(14) UNIQUE,
+    fantasy_name varchar(255) not null,
     client_id bigint not null,
     create_by varchar(255) not null,
     created_date timestamp(6) not null,

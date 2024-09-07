@@ -2,6 +2,7 @@ package br.com.selectgearmotors.client.infrastructure.entity.client;
 
 import br.com.selectgearmotors.client.infrastructure.entity.clienttype.ClientTypeEntity;
 import br.com.selectgearmotors.client.infrastructure.entity.domain.AuditDomain;
+import br.com.selectgearmotors.client.infrastructure.entity.media.MediaEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -59,21 +60,19 @@ public class ClientEntity extends AuditDomain {
     @Size(max = 15)
     private String mobile;
 
-    @Schema(description = "picture of the Client.",
-            example = "V$")
-    private String pic;
+    @Schema(description = "Media of the User.",
+            example = "1", required = true, ref = "User")
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "media_id", unique = true)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private MediaEntity mediaEntity;
 
     @Schema(description = "description of the Client.",
             example = "V$")
     @Size(min = 0, max = 255)
     @Column(name = "description", length = 255)
     private String description;
-
-    @Schema(description = "crp number of the Psychological.",
-            example = "Jessica Abigail", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-    @Column(name = "social_id")
-    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$", message = "CPF number")
-    private String socialId; //CPF
 
     @Schema(description = "description of the Client.",
             example = "V$")
@@ -100,9 +99,8 @@ public class ClientEntity extends AuditDomain {
         this.name = clientEntity.getName();
         this.email = clientEntity.getEmail();
         this.mobile = clientEntity.getMobile();
-        this.pic = clientEntity.getPic();
+        this.mediaEntity = clientEntity.getMediaEntity();
         this.description = clientEntity.getDescription();
-        this.socialId = clientEntity.getSocialId();
         this.address = clientEntity.getAddress();
         this.dataProcessingConsent = clientEntity.getDataProcessingConsent();
         this.clientTypeEntity = clientEntity.getClientTypeEntity();

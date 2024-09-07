@@ -1,17 +1,18 @@
 package br.com.selectgearmotors.client.core.domain;
 
-import br.com.selectgearmotors.client.infrastructure.entity.domain.AuditDomain;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+
+import java.io.Serializable;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "ClientPhysicalEntity", requiredProperties = {"socialId"})
-public class ClientPhysical extends AuditDomain {
+public class ClientPhysical implements Serializable {
 
     @Schema(description = "Unique identifier of the Client.",
             example = "1")

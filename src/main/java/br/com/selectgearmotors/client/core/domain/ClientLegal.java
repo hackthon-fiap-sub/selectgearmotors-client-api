@@ -1,9 +1,10 @@
 package br.com.selectgearmotors.client.core.domain;
 
-import br.com.selectgearmotors.client.infrastructure.entity.domain.AuditDomain;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -11,7 +12,7 @@ import lombok.*;
 @Builder
 @EqualsAndHashCode(callSuper = false)
 @Schema(description = "ClientLegalEntity", requiredProperties = {"companyId"})
-public class ClientLegal extends AuditDomain {
+public class ClientLegal implements Serializable {
 
     @Schema(description = "Unique identifier of the Client.",
             example = "1")
