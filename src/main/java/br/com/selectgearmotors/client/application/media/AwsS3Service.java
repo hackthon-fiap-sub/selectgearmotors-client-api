@@ -1,4 +1,4 @@
-package br.com.selectgearmotors.client.application.files;
+package br.com.selectgearmotors.client.application.media;
 
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;

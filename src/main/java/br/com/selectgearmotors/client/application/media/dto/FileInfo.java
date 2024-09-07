@@ -1,4 +1,4 @@
-package br.com.selectgearmotors.client.application.files.dto;
+package br.com.selectgearmotors.client.application.media.dto;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
-package br.com.selectgearmotors.client.application.files;
+package br.com.selectgearmotors.client.application.media;
 
 import br.com.selectgearmotors.client.application.database.repository.MediaRepositoryAdapter;
-import br.com.selectgearmotors.client.application.files.dto.FileInfo;
+import br.com.selectgearmotors.client.application.media.dto.FileInfo;
 import br.com.selectgearmotors.client.core.domain.Media;
 import br.com.selectgearmotors.client.infrastructure.entity.domain.MediaType;
 import com.amazonaws.AmazonServiceException;
@@ -39,13 +39,12 @@ public class MediaAdapter {
 
     public static final String UPLOAD_PATH_DIRECTORY = "src/main/resources/uploads";
     public static final String WAGON_DRIVER_IMAGES_BUCKET_S3 = "wagon-driver-images";
-    private final Path root = Paths.get(UPLOAD_PATH_DIRECTORY);
     private final MediaRepositoryAdapter mediaRepositoryAdapter;
     private final AwsS3Service awsS3Service;
 
     public void init() {
         try {
-            Files.createDirectories(root);
+            Files.createDirectories(getRoot());
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize folder for upload!");
         }
@@ -137,7 +136,7 @@ public class MediaAdapter {
 
      public Resource load(String filename) {
         try {
-            Path file = root.resolve(filename);
+            Path file = getRoot().resolve(filename);
             Resource resource = new UrlResource(file.toUri());
 
             if (resource.exists() || resource.isReadable()) {
@@ -151,12 +150,12 @@ public class MediaAdapter {
     }
 
     public void deleteAll() {
-        FileSystemUtils.deleteRecursively(root.toFile());
+        FileSystemUtils.deleteRecursively(getRoot().toFile());
     }
 
     public Stream<Path> loadAll() {
         try {
-            return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
+            return Files.walk(this.getRoot(), 1).filter(path -> !path.equals(this.getRoot())).map(this.getRoot()::relativize);
         } catch (IOException e) {
             throw new RuntimeException("Could not load the files!");
         }
@@ -164,5 +163,9 @@ public class MediaAdapter {
 
     public List<Media> findAll() {
         return mediaRepositoryAdapter.findAll();
+    }
+
+    public Path getRoot() {
+        return Paths.get(UPLOAD_PATH_DIRECTORY);
     }
 }

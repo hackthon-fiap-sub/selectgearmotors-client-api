@@ -1,8 +1,8 @@
 package br.com.selectgearmotors.client.application.api.resources;
 
 import br.com.selectgearmotors.client.application.api.dto.response.ResponseMessage;
-import br.com.selectgearmotors.client.application.files.MediaAdapter;
-import br.com.selectgearmotors.client.application.files.dto.FileInfo;
+import br.com.selectgearmotors.client.application.media.MediaAdapter;
+import br.com.selectgearmotors.client.application.media.dto.FileInfo;
 import br.com.selectgearmotors.client.core.domain.Media;
 import lombok.AllArgsConstructor;
 import lombok.Data;

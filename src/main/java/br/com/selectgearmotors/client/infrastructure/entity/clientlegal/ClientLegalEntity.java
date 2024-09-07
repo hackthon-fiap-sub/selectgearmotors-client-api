@@ -1,13 +1,18 @@
 package br.com.selectgearmotors.client.infrastructure.entity.clientlegal;
 
+import br.com.selectgearmotors.client.commons.Constants;
 import br.com.selectgearmotors.client.infrastructure.entity.client.ClientEntity;
 import br.com.selectgearmotors.client.infrastructure.entity.domain.AuditDomain;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tb_client_legal", schema = "client")
@@ -44,6 +49,14 @@ public class ClientLegalEntity extends AuditDomain {
     @Size(max = 14)
     private String companyId; //CNPJ
 
+    @Schema(description = "socialIdDispatchDate of the Psychological.",
+            format = "ISO8601 date string",
+            example = "13/09/2022", required = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.BRAZILIAN_DATE)
+    @DateTimeFormat(pattern = Constants.BRAZILIAN_DATE)
+    @Column(name = "foundation_date")
+    private LocalDate foundationDate; //Data de Nascimento
+
     @Schema(description = "Client of the User.",
             example = "1", ref = "ClientCategoryEntity")
     @OneToOne
@@ -56,5 +69,6 @@ public class ClientLegalEntity extends AuditDomain {
         this.clientEntity = clientLegalEntity.getClientEntity();
         this.socialName = clientLegalEntity.getSocialName();
         this.fantasyName = clientLegalEntity.getFantasyName();
+        this.foundationDate = clientLegalEntity.getFoundationDate();
     }
 }

@@ -3,6 +3,7 @@ create table client.tb_client_legal (
     social_name varchar(255) not null,
     company_id VARCHAR(14) UNIQUE,
     fantasy_name varchar(255) not null,
+    foundation_date date not null,
     client_id bigint not null,
     create_by varchar(255) not null,
     created_date timestamp(6) not null,
