@@ -62,7 +62,6 @@ class ClientRepositoryTest {
                 .mobile("(34) 97452-6758")
                 .address(faker.address().fullAddress())
                 .dataProcessingConsent(faker.bool().bool())
-                .pic("hhh")
                 .description("Coca-Cola")
                 .clientTypeEntity(clientType)
                 .build();
@@ -181,7 +180,6 @@ class ClientRepositoryTest {
         ClientEntity clientEntity = new ClientEntity();
         clientEntity.setName("a".repeat(260)); // Nome com 260 caracteres, excedendo o limite de 255
         clientEntity.setCode(UUID.randomUUID().toString());
-        clientEntity.setPic("hhh");
         clientEntity.setDescription("Coca-Cola");
 
         assertThrows(ConstraintViolationException.class, () -> {

@@ -36,7 +36,6 @@ public class ObjectFactory {
                 .mobile("(34) 97452-6758")
                 .address(faker.address().fullAddress())
                 .dataProcessingConsent(faker.bool().bool())
-                .pic("hhh")
                 .description("Coca-Cola")
                 .clientTypeEntity(clientType)
                 .build();

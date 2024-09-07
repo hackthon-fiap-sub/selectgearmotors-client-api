@@ -30,8 +30,6 @@ class ClientApiMapperTest {
         ClientRequest request = new ClientRequest();
         request.setName("Client Name");
         request.setDescription("Client Description");
-        request.setPic("pic.jpg");
-
         // Act
         Client client = clientApiMapper.fromRequest(request);
 
@@ -39,7 +37,6 @@ class ClientApiMapperTest {
         assertNotNull(client);
         assertEquals(request.getName(), client.getName());
         assertEquals(request.getDescription(), client.getDescription());
-        assertEquals(request.getPic(), client.getPic());
     }
 
     @Test
@@ -50,7 +47,6 @@ class ClientApiMapperTest {
         product.setCode("P001");
         product.setName("Client Name");
         product.setDescription("Client Description");
-        product.setPic("pic.jpg");
 
         // Act
         ClientResponse response = clientApiMapper.fromEntity(product);
@@ -61,7 +57,6 @@ class ClientApiMapperTest {
         assertEquals(product.getCode(), response.getCode());
         assertEquals(product.getName(), response.getName());
         assertEquals(product.getDescription(), response.getDescription());
-        assertEquals(product.getPic(), response.getPic());
     }
 
     @Test
@@ -72,14 +67,12 @@ class ClientApiMapperTest {
         product1.setCode("P001");
         product1.setName("Client 1");
         product1.setDescription("Description 1");
-        product1.setPic("pic1.jpg");
 
         Client product2 = new Client();
         product2.setId(2L);
         product2.setCode("P002");
         product2.setName("Client 2");
         product2.setDescription("Description 2");
-        product2.setPic("pic2.jpg");
 
         List<Client> products = Arrays.asList(product1, product2);
 
@@ -95,13 +88,11 @@ class ClientApiMapperTest {
         assertEquals(product1.getCode(), response1.getCode());
         assertEquals(product1.getName(), response1.getName());
         assertEquals(product1.getDescription(), response1.getDescription());
-        assertEquals(product1.getPic(), response1.getPic());
 
         ClientResponse response2 = responses.get(1);
         assertEquals(product2.getId(), response2.getId());
         assertEquals(product2.getCode(), response2.getCode());
         assertEquals(product2.getName(), response2.getName());
         assertEquals(product2.getDescription(), response2.getDescription());
-        assertEquals(product2.getPic(), response2.getPic());
     }
 }

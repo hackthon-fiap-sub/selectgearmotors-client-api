@@ -1,9 +1,10 @@
 package br.com.selectgearmotors.client.core.service;
 
 import br.com.selectgearmotors.client.application.api.exception.ResourceFoundException;
-import br.com.selectgearmotors.client.core.domain.Client;
+import br.com.selectgearmotors.client.core.domain.Media;
 import br.com.selectgearmotors.client.core.ports.in.client.*;
-import br.com.selectgearmotors.client.core.ports.out.ClientRepositoryPort;
+import br.com.selectgearmotors.client.core.ports.in.media.*;
+import br.com.selectgearmotors.client.core.ports.out.MediaRepositoryPort;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +16,18 @@ import java.util.UUID;
 @Slf4j
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class MediaService implements CreateClientPort, UpdateClientPort, FindByIdClientPort, FindClientsPort, DeleteClientPort {
+public class MediaService implements CreateMediaPort, UpdateMediaPort, FindByIdMediaPort, FindMediasPort, DeleteMediaPort {
 
-    private final ClientRepositoryPort clientRepository;
+    private final MediaRepositoryPort clientRepository;
 
     @Override
-    public Client save(Client client) throws ResourceFoundException {
-        Client byEmail = findByEmail(client.getEmail());
-        if (byEmail != null) {
-            throw new ResourceFoundException("Client already exists");
-        }
-        client.setCode(UUID.randomUUID().toString());
+    public Media save(Media client) throws ResourceFoundException {
         return clientRepository.save(client);
     }
 
     @Override
-    public Client update(Long id, Client client) {
-        Client resultById = findById(id);
+    public Media update(Long id, Media client) {
+        Media resultById = findById(id);
         if (resultById != null) {
             resultById.update(id, client);
 
@@ -42,31 +38,21 @@ public class MediaService implements CreateClientPort, UpdateClientPort, FindByI
     }
 
     @Override
-    public Client findById(Long id) {
+    public Media findById(Long id) {
         return clientRepository.findById(id);
     }
 
     @Override
-    public Client findByEmail(String email) {
-        return clientRepository.findByEmail(email);
-    }
-
-    @Override
-    public Client findByCode(String code) {
-        return clientRepository.findByCode(code);
-    }
-
-    @Override
-    public List<Client> findAll() {
+    public List<Media> findAll() {
        return clientRepository.findAll();
     }
 
     @Override
     public boolean remove(Long id) {
         try {
-            Client clientById = findById(id);
+            Media clientById = findById(id);
             if (clientById == null) {
-                throw new ResourceFoundException("Client not found");
+                throw new ResourceFoundException("Media not found");
             }
 
             clientRepository.remove(id);

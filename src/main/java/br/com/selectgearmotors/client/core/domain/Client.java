@@ -39,7 +39,7 @@ public class Client implements Serializable {
 
     @Schema(description = "name of the Product.",
             example = "V$")
-    private String pic;
+    private String mediaId;
 
     @Schema(description = "name of the Product.",
             example = "V$")
@@ -65,7 +65,7 @@ public class Client implements Serializable {
         this.mobile = client.getMobile();
         this.description = client.getDescription();
         this.socialId = client.getSocialId();
-        this.pic = client.getPic();
+        this.mediaId = client.getMediaId();
         this.address = client.getAddress();
         this.dataProcessingConsent = client.getDataProcessingConsent();
         this.clientTypeId = client.getClientTypeId();

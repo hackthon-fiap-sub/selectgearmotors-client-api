@@ -77,7 +77,6 @@ class ClientPhysicalServiceTest {
         return ClientEntity.builder()
                 .name("Bebida")
                 .code(UUID.randomUUID().toString())
-                .pic("hhh")
                 .description("Coca-Cola")
                 .clientTypeEntity(clientTypeEntity)
                 .build();
@@ -87,7 +86,6 @@ class ClientPhysicalServiceTest {
         return Client.builder()
                 .name("Coca-Cola")
                 .code(UUID.randomUUID().toString())
-                .pic("hhh")
                 .description("Coca-Cola")
                 .clientTypeId(clientType.getId())
                 .build();

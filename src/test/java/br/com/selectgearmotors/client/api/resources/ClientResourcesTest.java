@@ -95,7 +95,6 @@ class ClientResourcesTest {
                 .name(faker.company().name())
                 .email(faker.internet().emailAddress())
                 .mobile("(34) 97452-6758")
-                .pic(faker.internet().url())
                 .description(faker.lorem().sentence())
                 .socialId("967.382.310-32")
                 .address(faker.address().fullAddress())
@@ -111,7 +110,6 @@ class ClientResourcesTest {
                 .mobile("(34) 97452-6758")
                 .address(faker.address().fullAddress())
                 .dataProcessingConsent(faker.bool().bool())
-                .pic("hhh")
                 .description("Coca-Cola")
                 .clientTypeId(clientTypeId)
                 .build();

@@ -17,13 +17,11 @@ class ClientEntityTest {
         Long id = 1L;
         Client client = new Client();
         client.setName("Updated Name");
-        client.setPic("Updated Pic");
         client.setDescription("Updated Description");
 
         ClientEntity entity = new ClientEntity();
         entity.setId(2L);
         entity.setName("Old Name");
-        entity.setPic("Old Pic");
         entity.setDescription("Old Description");
 
         // Act
@@ -32,7 +30,6 @@ class ClientEntityTest {
         // Assert
         assertEquals(id, entity.getId());
         assertEquals("Old Name", entity.getName());
-        assertEquals("Old Pic", entity.getPic());
         assertEquals("Old Description", entity.getDescription());
     }
 
@@ -41,12 +38,10 @@ class ClientEntityTest {
         ClientEntity entity = new ClientEntity();
         entity.setId(1L);
         entity.setName("Old Name");
-        entity.setPic("Old Pic");
         entity.setDescription("Old Description");
 
         assertThat(entity.getId()).isEqualTo(1L);
         assertThat(entity.getName()).isEqualTo("Old Name");
-        assertThat(entity.getPic()).isEqualTo("Old Pic");
     }
 
     @Disabled
@@ -59,7 +54,6 @@ class ClientEntityTest {
         client.setId(1L);
         client.setCode("d7d19a26-846f-4808-818b-ffc3495be7bb");
         client.setName("Old Name");
-        client.setPic("Old Pic");
         client.setDescription("Old Description");
 
         String expected = "ClientEntity(id=1, code=d7d19a26-846f-4808-818b-ffc3495be7bb, name=Old Name, pic=Old Pic, description=Old Description, clientCategory=ClientCategoryEntity(id=1, name=Bebida), restaurant=RestaurantEntity(id=1, name=Test Restaurant, cnpj=12.345.678/0001-99))";
@@ -71,14 +65,12 @@ class ClientEntityTest {
         ClientEntity client1 = ClientEntity.builder()
                 .id(1L)
                 .name("Old Name")
-                .pic("Old Pic")
                 .description("Old Description")
                 .build();
 
         ClientEntity client2 = ClientEntity.builder()
                 .id(1L)
                 .name("Old Name")
-                .pic("Old Pic")
                 .description("Old Description")
                 .build();
 

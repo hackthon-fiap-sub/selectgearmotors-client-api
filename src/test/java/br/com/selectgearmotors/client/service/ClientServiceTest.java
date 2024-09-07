@@ -61,7 +61,6 @@ class ClientServiceTest {
         return ClientEntity.builder()
                 .name("Bebida")
                 .code(UUID.randomUUID().toString())
-                .pic("hhh")
                 .description("Coca-Cola")
                 .clientTypeEntity(clientTypeEntity)
                 .build();
@@ -71,7 +70,6 @@ class ClientServiceTest {
         return Client.builder()
                 .name("Coca-Cola")
                 .code(UUID.randomUUID().toString())
-                .pic("hhh")
                 .description("Coca-Cola")
                 .clientTypeId(clientType.getId())
                 .build();
@@ -150,7 +148,6 @@ class ClientServiceTest {
         Client client = new Client();
         client.setName("a".repeat(260)); // Nome com 260 caracteres, excedendo o limite de 255
         client.setCode(UUID.randomUUID().toString());
-        client.setPic("hhh");
         client.setDescription("Coca-Cola");
 
         // Simulando o lançamento de uma exceção

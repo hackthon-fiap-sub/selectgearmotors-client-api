@@ -16,10 +16,13 @@ import java.util.Date;
 @Slf4j
 @Service
 @Data
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class AwsS3Service {
 
     private final AmazonS3 amazonS3;
+
+    public AwsS3Service(AmazonS3 amazonS3) {
+        this.amazonS3 = amazonS3;
+    }
 
     public String generatePreSignedUrl(String filePath,
                                        String bucketName,

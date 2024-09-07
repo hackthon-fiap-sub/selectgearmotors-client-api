@@ -20,7 +20,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Schema(description = "ClientLegalEntity", requiredProperties = {"companyId"})
 public class ClientLegalEntity extends AuditDomain {
 

@@ -41,7 +41,7 @@ public class ClientRequest implements Serializable {
 
     @Schema(description = "picture of the Client.",
             example = "V$")
-    private String pic;
+    private Long mediaId;
 
     @Schema(description = "description of the Client.",
             example = "V$")

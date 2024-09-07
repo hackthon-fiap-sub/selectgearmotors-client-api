@@ -15,13 +15,11 @@ class ClientTest {
         client.setCode("CODE123");
         client.setName("Client Name");
         client.setDescription("Client Description");
-        client.setPic("pic.jpg");
 
         assertEquals(1L, client.getId());
         assertEquals("CODE123", client.getCode());
         assertEquals("Client Name", client.getName());
         assertEquals("Client Description", client.getDescription());
-        assertEquals("pic.jpg", client.getPic());
     }
 
     @Test
@@ -31,14 +29,12 @@ class ClientTest {
                 .code("CODE123")
                 .name("Client Name")
                 .description("Client Description")
-                .pic("pic.jpg")
                 .build();
 
         assertEquals(1L, client.getId());
         assertEquals("CODE123", client.getCode());
         assertEquals("Client Name", client.getName());
         assertEquals("Client Description", client.getDescription());
-        assertEquals("pic.jpg", client.getPic());
     }
 
     @Test
@@ -48,13 +44,11 @@ class ClientTest {
         client.setCode("CODE123");
         client.setName("Client Name");
         client.setDescription("Client Description");
-        client.setPic("pic.jpg");
 
         Client newClient = new Client();
         newClient.setCode("NEWCODE");
         newClient.setName("New Client Name");
         newClient.setDescription("New Client Description");
-        newClient.setPic("newpic.jpg");
 
         client.update(2L, newClient);
 
@@ -62,7 +56,6 @@ class ClientTest {
         assertEquals("NEWCODE", client.getCode());
         assertEquals("New Client Name", client.getName());
         assertEquals("New Client Description", client.getDescription());
-        assertEquals("newpic.jpg", client.getPic());
     }
 
     @Test

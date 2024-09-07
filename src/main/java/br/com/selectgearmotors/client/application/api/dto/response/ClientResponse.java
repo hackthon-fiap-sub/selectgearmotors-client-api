@@ -42,10 +42,12 @@ public class ClientResponse implements Serializable {
 
     @Schema(description = "value the Product.",
             example = "V$")
-    private String pic;
+    private String mediaId;
 
     private String socialId; //CPF
 
     private String mobile;
+
+    private String clientTypeId;
 
 }

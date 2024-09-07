@@ -4,6 +4,8 @@ import br.com.selectgearmotors.client.infrastructure.entity.client.ClientEntity;
 import br.com.selectgearmotors.client.infrastructure.entity.clientlegal.ClientLegalEntity;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientLegalEntityTest {
@@ -13,8 +15,8 @@ public class ClientLegalEntityTest {
         // Arrange
         ClientEntity clientEntity1 = new ClientEntity();
         ClientEntity clientEntity2 = new ClientEntity();
-        ClientLegalEntity originalEntity = new ClientLegalEntity(1L, "12.345.678/0001-00", clientEntity1);
-        ClientLegalEntity updatedEntity = new ClientLegalEntity(2L, "98.765.432/0001-00", clientEntity2);
+        ClientLegalEntity originalEntity = new ClientLegalEntity(1L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity1);
+        ClientLegalEntity updatedEntity = new ClientLegalEntity(2L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity2);
 
         // Act
         originalEntity.update(2L, updatedEntity);
@@ -31,7 +33,7 @@ public class ClientLegalEntityTest {
         ClientEntity clientEntity = new ClientEntity();
 
         // Act
-        ClientLegalEntity entity = new ClientLegalEntity(1L, "12.345.678/0001-00", clientEntity);
+        ClientLegalEntity entity = new ClientLegalEntity(1L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity);
 
         // Assert
         assertEquals(1L, entity.getId());
@@ -43,7 +45,7 @@ public class ClientLegalEntityTest {
     public void testToString() {
         // Arrange
         ClientEntity clientEntity = new ClientEntity();
-        ClientLegalEntity entity = new ClientLegalEntity(1L, "12.345.678/0001-00", clientEntity);
+        ClientLegalEntity entity = new ClientLegalEntity(1L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity);
 
         // Act
         String toString = entity.toString();
@@ -60,8 +62,8 @@ public class ClientLegalEntityTest {
     public void testHashCode() {
         // Arrange
         ClientEntity clientEntity = new ClientEntity();
-        ClientLegalEntity entity1 = new ClientLegalEntity(1L, "12.345.678/0001-00", clientEntity);
-        ClientLegalEntity entity2 = new ClientLegalEntity(1L, "12.345.678/0001-00", clientEntity);
+        ClientLegalEntity entity1 = new ClientLegalEntity(1L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity);
+        ClientLegalEntity entity2 = new ClientLegalEntity(1L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity);
 
         // Act & Assert
         assertEquals(entity1.hashCode(), entity2.hashCode());
@@ -71,9 +73,9 @@ public class ClientLegalEntityTest {
     public void testEquals() {
         // Arrange
         ClientEntity clientEntity = new ClientEntity();
-        ClientLegalEntity entity1 = new ClientLegalEntity(1L, "12.345.678/0001-00", clientEntity);
-        ClientLegalEntity entity2 = new ClientLegalEntity(1L, "12.345.678/0001-00", clientEntity);
-        ClientLegalEntity entity3 = new ClientLegalEntity(2L, "98.765.432/0001-00", clientEntity);
+        ClientLegalEntity entity1 = new ClientLegalEntity(1L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity);
+        ClientLegalEntity entity2 = new ClientLegalEntity(1L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity);
+        ClientLegalEntity entity3 = new ClientLegalEntity(2L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity);
 
         // Act & Assert
         assertEquals(entity1, entity2);

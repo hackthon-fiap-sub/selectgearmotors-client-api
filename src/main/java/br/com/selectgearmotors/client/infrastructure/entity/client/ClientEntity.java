@@ -10,10 +10,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "tb_client", schema = "client")
@@ -21,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Schema(description = "ClientEntity", requiredProperties = {"id, code, name, email, mobile, pic, description, socialId, address, clientTypeEntity"})
 @Tag(name = "ClientEntity", description = "Model")
 public class ClientEntity extends AuditDomain {
