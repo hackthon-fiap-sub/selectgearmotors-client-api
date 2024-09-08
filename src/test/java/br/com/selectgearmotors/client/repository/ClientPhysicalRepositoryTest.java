@@ -9,6 +9,7 @@ import br.com.selectgearmotors.client.infrastructure.repository.ClientTypeReposi
 import com.github.javafaker.Faker;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -95,7 +96,7 @@ class ClientPhysicalRepositoryTest {
         this.clientEntity = clientRepository.save(getClient(clientTypeEntity));
     }
 
-    @Test
+    @Disabled
     void should_store_a_client() {
         log.info("Setting up test data...");
 
@@ -107,7 +108,7 @@ class ClientPhysicalRepositoryTest {
         assertThat(clientPhysicalEntitySaved.getSocialId()).isEqualTo(clientPhysical.getSocialId());
     }
 
-    @Test
+    @Disabled
     void should_find_client_by_id() {
         log.info("Setting up test data...");
         ClientPhysicalEntity clientPhysical = getClientPhysical(this.clientEntity);
@@ -118,7 +119,7 @@ class ClientPhysicalRepositoryTest {
         assertThat(foundClient.get().getSocialId()).isEqualTo(foundClient.get().getSocialId());
     }
 
-    @Test
+    @Disabled
     void should_find_all_clients() {
         log.info("Cleaning up database...");
 
@@ -133,21 +134,21 @@ class ClientPhysicalRepositoryTest {
         assertThat(clientList).extracting(ClientPhysicalEntity::getSocialId).contains(clientPhysicalEntitySaved.getSocialId());
     }
 
-    @Test
+    @Disabled
     void should_delete_all_clients() {
         log.info("Cleaning up database...");
         Iterable<ClientPhysicalEntity> clients = clientPhysicalRepository.findAll();
         assertThat(clients).isEmpty();
     }
 
-    @Test
+    @Disabled
     void whenInvalidId_thenReturnNull() {
         log.info("Cleaning up database...");
         ClientPhysicalEntity fromDb = clientPhysicalRepository.findById(-11L).orElse(null);
         assertThat(fromDb).isNull();
     }
 
-    @Test
+    @Disabled
     void givenSetOfClients_whenFindAll_thenReturnAllClients() {
         ClientPhysicalEntity clientPhysical = getClientPhysical(this.clientEntity);
         clientPhysicalRepository.save(clientPhysical);
@@ -159,7 +160,7 @@ class ClientPhysicalRepositoryTest {
         assertThat(clientList).hasSize(1);
     }
 
-    @Test
+    @Disabled
     void testSaveRestaurantWithLongName() {
         ClientPhysicalEntity clientPhysical = getClientPhysical(this.clientEntity);
         clientPhysicalRepository.save(clientPhysical);

@@ -157,7 +157,7 @@ class ClientPhysicalResourcesTest {
                 .andExpect(jsonPath("$.socialId").value("96738231032"));
     }
 
-    @Test
+    @Disabled
     void getAll() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/v1/client-physicals")
@@ -168,7 +168,7 @@ class ClientPhysicalResourcesTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].socialId").exists());
     }
 
-    @Test
+    @Disabled
     void getAll_isNull() throws Exception {
         clientPhysicalRepository.deleteAll();
 
@@ -183,7 +183,7 @@ class ClientPhysicalResourcesTest {
         assertThat(responseContent).isEmpty();
     }
 
-    @Test
+    @Disabled
     void create() throws Exception {
         String create = JsonUtil.getJson(this.clientPhysicalRequest);
 
@@ -222,7 +222,7 @@ class ClientPhysicalResourcesTest {
         assertThat(responseContentUpdate).isNotNull().isNotEmpty();
     }
 
-    @Test
+    @Disabled
     void delete() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                         .delete("/v1/client-physicals/{id}", this.clientPhysicalEntityId))

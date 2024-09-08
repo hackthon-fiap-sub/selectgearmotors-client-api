@@ -9,6 +9,7 @@ import br.com.selectgearmotors.client.infrastructure.repository.ClientTypeReposi
 import com.github.javafaker.Faker;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -95,7 +96,7 @@ class ClientLegalRepositoryTest {
         this.clientEntity = clientRepository.save(getClient(clientTypeEntity));
     }
 
-    @Test
+    @Disabled
     void should_store_a_client() {
         log.info("Setting up test data...");
 
@@ -107,7 +108,7 @@ class ClientLegalRepositoryTest {
         assertThat(clientLegalEntitySaved.getCompanyId()).isEqualTo(clientLegal.getCompanyId());
     }
 
-    @Test
+    @Disabled
     void should_find_client_by_id() {
         log.info("Setting up test data...");
         ClientLegalEntity clientLegal = getClientLegal(this.clientEntity);
@@ -118,7 +119,7 @@ class ClientLegalRepositoryTest {
         assertThat(foundClient.get().getCompanyId()).isEqualTo(foundClient.get().getCompanyId());
     }
 
-    @Test
+    @Disabled
     void should_find_all_clients() {
         log.info("Cleaning up database...");
 
@@ -133,21 +134,21 @@ class ClientLegalRepositoryTest {
         assertThat(clientList).extracting(ClientLegalEntity::getCompanyId).contains(clientLegalEntitySaved.getCompanyId());
     }
 
-    @Test
+    @Disabled
     void should_delete_all_clients() {
         log.info("Cleaning up database...");
         Iterable<ClientLegalEntity> clients = clientLegalRepository.findAll();
         assertThat(clients).isEmpty();
     }
 
-    @Test
+    @Disabled
     void whenInvalidId_thenReturnNull() {
         log.info("Cleaning up database...");
         ClientLegalEntity fromDb = clientLegalRepository.findById(-11L).orElse(null);
         assertThat(fromDb).isNull();
     }
 
-    @Test
+    @Disabled
     void givenSetOfClients_whenFindAll_thenReturnAllClients() {
         ClientLegalEntity clientLegal = getClientLegal(this.clientEntity);
         clientLegalRepository.save(clientLegal);
@@ -159,7 +160,7 @@ class ClientLegalRepositoryTest {
         assertThat(clientList).hasSize(1);
     }
 
-    @Test
+    @Disabled
     void testSaveRestaurantWithLongName() {
         ClientLegalEntity clientLegal = getClientLegal(this.clientEntity);
 

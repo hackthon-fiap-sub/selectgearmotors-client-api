@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,11 @@ import java.util.Date;
 
 @Slf4j
 @Service
-@Data
 public class AwsS3Service {
 
     private final AmazonS3 amazonS3;
 
+    @Autowired
     public AwsS3Service(AmazonS3 amazonS3) {
         this.amazonS3 = amazonS3;
     }
@@ -42,5 +43,9 @@ public class AwsS3Service {
         request.setCannedAcl(CannedAccessControlList.BucketOwnerFullControl);
         PutObjectResult putObjectResult = amazonS3.putObject(request);
         log.info("PutObjectResult: " + putObjectResult);
+    }
+
+    public AmazonS3 getAmazonS3() {
+        return amazonS3;
     }
 }

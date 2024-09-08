@@ -15,8 +15,8 @@ public class ClientLegalEntityTest {
         // Arrange
         ClientEntity clientEntity1 = new ClientEntity();
         ClientEntity clientEntity2 = new ClientEntity();
-        ClientLegalEntity originalEntity = new ClientLegalEntity(1L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity1);
-        ClientLegalEntity updatedEntity = new ClientLegalEntity(2L, "RGR", "RGF C", "12.345.678/0001-00" , LocalDate.now(), clientEntity2);
+        ClientLegalEntity originalEntity = new ClientLegalEntity(1L, "RGR", "RGF C", "98.765.432/0001-00" , LocalDate.now(), clientEntity1);
+        ClientLegalEntity updatedEntity = new ClientLegalEntity(2L, "RGR", "RGF C", "98.765.432/0001-00" , LocalDate.now(), clientEntity2);
 
         // Act
         originalEntity.update(2L, updatedEntity);

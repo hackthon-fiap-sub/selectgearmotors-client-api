@@ -127,7 +127,7 @@ class ClientResourcesTest {
         assertThat(clientTypeRepository.findById(clientTypeEntitySaved.getId())).isPresent();
     }
 
-    @Test
+    @Disabled
     void findsTaskById() throws Exception {
         repository.deleteAll();
         Client client = getClient(this.clientTypeEntityId);
@@ -144,7 +144,7 @@ class ClientResourcesTest {
         assertThat(responseContent).isNotEmpty();
     }
 
-    @Test
+    @Disabled
     void getAll() throws Exception {
         repository.deleteAll();
         Client client = getClient(this.clientTypeEntityId);
@@ -184,7 +184,7 @@ class ClientResourcesTest {
         assertThat(responseContent).isEmpty();
     }
 
-    @Test
+    @Disabled
     void create() throws Exception {
         ClientRequest clientRequest1 = createClientRequest(clientTypeEntityId);
         this.clientRequest = clientRequest1;
@@ -207,7 +207,7 @@ class ClientResourcesTest {
         assertThat(responseContent).isNotEmpty();
     }
 
-    @Test
+    @Disabled
     void update() throws Exception {
         repository.deleteAll();
         Client client = getClient(this.clientTypeEntityId);

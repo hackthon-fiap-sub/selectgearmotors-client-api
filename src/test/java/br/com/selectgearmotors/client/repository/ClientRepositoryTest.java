@@ -1,10 +1,14 @@
 package br.com.selectgearmotors.client.repository;
 
 import br.com.selectgearmotors.client.application.database.mapper.ClientMapper;
+import br.com.selectgearmotors.client.core.domain.Media;
 import br.com.selectgearmotors.client.infrastructure.entity.client.ClientEntity;
 import br.com.selectgearmotors.client.infrastructure.entity.clienttype.ClientTypeEntity;
+import br.com.selectgearmotors.client.infrastructure.entity.domain.MediaType;
+import br.com.selectgearmotors.client.infrastructure.entity.media.MediaEntity;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientRepository;
 import br.com.selectgearmotors.client.infrastructure.repository.ClientTypeRepository;
+import br.com.selectgearmotors.client.infrastructure.repository.MediaRepository;
 import com.github.javafaker.Faker;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -35,26 +39,41 @@ class ClientRepositoryTest {
     @Autowired
     private ClientTypeRepository clientTypeRepository;
 
+    @Autowired
+    private MediaRepository mediaRepository;
+
     private ClientMapper clientMapper;
 
     private ClientTypeEntity clientType;
+
+    private MediaEntity mediaEntity;
 
     private Faker faker = new Faker();
 
     @BeforeEach
     void setUp() {
         log.info("Cleaning up database...");
+        mediaRepository.deleteAll();
         clientRepository.deleteAll();
         clientTypeRepository.deleteAll();
 
+        this.mediaEntity = mediaRepository.save(getMedia());
         log.info("Setting up test data...");
-        clientType = clientTypeRepository.save(getClientType());
+        this.clientType = clientTypeRepository.save(getClientType());
 
-        ClientEntity client = clientRepository.save(getClient(clientType));
+        ClientEntity client = clientRepository.save(getClient(this.clientType, this.mediaEntity));
         log.info("ClientEntity:{}", client);
     }
 
-    private ClientEntity getClient(ClientTypeEntity clientType) {
+    private MediaEntity getMedia() {
+        return MediaEntity.builder()
+                .name(faker.food().fruit())
+                .path(faker.internet().url())
+                .mediaType(MediaType.PNG)
+                .build();
+    }
+
+    private ClientEntity getClient(ClientTypeEntity clientType, MediaEntity media) {
         return ClientEntity.builder()
                 .name(faker.food().vegetable())
                 .code(UUID.randomUUID().toString())
@@ -64,6 +83,7 @@ class ClientRepositoryTest {
                 .dataProcessingConsent(faker.bool().bool())
                 .description("Coca-Cola")
                 .clientTypeEntity(clientType)
+                .mediaEntity(media)
                 .build();
     }
 
@@ -85,13 +105,14 @@ class ClientRepositoryTest {
         log.info("Setting up test data...");
 
         // Salvar o ClientTypeEntity primeiro para garantir que ele está no banco de dados
-        ClientTypeEntity clientType1 = clientTypeRepository.save(getClientType());
+        var clientType1 = clientTypeRepository.save(getClientType());
+        var mediaEntity1 =  mediaRepository.save(getMedia());
 
         // Agora que o clientType1 foi salvo, podemos associá-lo ao ClientEntity
-        ClientEntity clientEntity = getClient(clientType1);
+        var clientEntity = getClient(clientType1, mediaEntity1);
 
         // Salvar o ClientEntity, que agora tem uma referência válida ao ClientTypeEntity persistido
-        ClientEntity savedClient = clientRepository.save(clientEntity);
+        var savedClient = clientRepository.save(clientEntity);
 
         assertThat(savedClient).isNotNull();
         assertThat(savedClient.getId()).isNotNull();
@@ -102,8 +123,9 @@ class ClientRepositoryTest {
     void should_find_client_by_id() {
         log.info("Setting up test data...");
         var clientType1 = clientTypeRepository.save(getClientType());
+        var mediaEntity1 =  mediaRepository.save(getMedia());
+        var client = getClient(clientType1, mediaEntity1);
 
-        ClientEntity client = getClient(clientType1);
         client.setCode(UUID.randomUUID().toString());
 
         // Ensure unique code
@@ -121,8 +143,8 @@ class ClientRepositoryTest {
         clientTypeRepository.deleteAll();
 
         var clientType1 = clientTypeRepository.save(getClientType());
-
-        ClientEntity client1 = clientRepository.save(getClient(clientType1));
+        var mediaEntity1 =  mediaRepository.save(getMedia());
+        var client1 = clientRepository.save(getClient(clientType1, mediaEntity1));
 
         Iterable<ClientEntity> clients = clientRepository.findAll();
         List<ClientEntity> clientList = new ArrayList<>();
@@ -138,8 +160,9 @@ class ClientRepositoryTest {
         clientRepository.deleteAll();
         clientTypeRepository.deleteAll();
         var clientType1 = clientTypeRepository.save(getClientType());
+        var mediaEntity1 =  mediaRepository.save(getMedia());
 
-        clientRepository.save(getClient(clientType1));
+        clientRepository.save(getClient(clientType1, mediaEntity1));
         clientRepository.deleteAll();
 
         Iterable<ClientEntity> clients = clientRepository.findAll();
@@ -149,7 +172,7 @@ class ClientRepositoryTest {
     @Test
     void whenInvalidId_thenReturnNull() {
         log.info("Cleaning up database...");
-        ClientEntity fromDb = clientRepository.findById(-11L).orElse(null);
+        var fromDb = clientRepository.findById(-11L).orElse(null);
         assertThat(fromDb).isNull();
     }
 
@@ -161,11 +184,12 @@ class ClientRepositoryTest {
         List<ClientEntity> all = clientRepository.findAll();
         log.info(all.toString());
 
-        ClientTypeEntity clientType1 = clientTypeRepository.save(getClientType());
+        var clientType1 = clientTypeRepository.save(getClientType());
+        var mediaEntity1 =  mediaRepository.save(getMedia());
 
-        ClientEntity client = getClient(clientType1);
+        var client = getClient(clientType1, mediaEntity1);
         log.info("ClientEntity:{}", client);
-        ClientEntity client1 = clientRepository.save(client);
+        var client1 = clientRepository.save(client);
 
         Iterable<ClientEntity> clients = clientRepository.findAll();
         List<ClientEntity> clientList = new ArrayList<>();
