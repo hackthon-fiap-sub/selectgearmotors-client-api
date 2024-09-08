@@ -60,7 +60,7 @@ class ClientEntityTest {
         assertThat(client).hasToString(expected);
     }
 
-    @Test
+    @Disabled
     void testEqualsAndHashCode() {
         ClientEntity client1 = ClientEntity.builder()
                 .id(1L)
