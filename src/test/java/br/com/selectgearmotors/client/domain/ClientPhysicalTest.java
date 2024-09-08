@@ -4,6 +4,8 @@ import br.com.selectgearmotors.client.core.domain.ClientPhysical;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -12,7 +14,7 @@ public class ClientPhysicalTest {
     @Test
     public void testConstructor() {
         // Arrange & Act
-        ClientPhysical entity = new ClientPhysical(1L, "123.456.789-00", 1L);
+        ClientPhysical entity = new ClientPhysical(1L, "123.456.789-00", LocalDate.now(), "SP 9999999", "SP", LocalDate.now(),  LocalDate.now(), 1L);
 
         // Assert
         assertEquals(1L, entity.getId());
@@ -39,7 +41,7 @@ public class ClientPhysicalTest {
     @Test
     public void testToString() {
         // Arrange
-        ClientPhysical entity = new ClientPhysical(1L, "123.456.789-00", 1L);
+        ClientPhysical entity = new ClientPhysical(1L, "123.456.789-00", LocalDate.now(), "SP 9999999", "SP", LocalDate.now(),  LocalDate.now(), 1L);
 
         // Act
         String toString = entity.toString();
@@ -55,8 +57,8 @@ public class ClientPhysicalTest {
     @Test
     public void testHashCode() {
         // Arrange
-        ClientPhysical entity1 = new ClientPhysical(1L, "123.456.789-00", 1L);
-        ClientPhysical entity2 = new ClientPhysical(1L, "123.456.789-00", 1L);
+        ClientPhysical entity1 = new ClientPhysical(1L, "123.456.789-00", LocalDate.now(), "SP 9999999", "SP", LocalDate.now(),  LocalDate.now(), 1L);
+        ClientPhysical entity2 = new ClientPhysical(1L, "123.456.789-00", LocalDate.now(), "SP 9999999", "SP", LocalDate.now(),  LocalDate.now(), 1L);
 
         // Act & Assert
         assertEquals(entity1.hashCode(), entity2.hashCode());
@@ -65,9 +67,9 @@ public class ClientPhysicalTest {
     @Disabled
     public void testEquals() {
         // Arrange
-        ClientPhysical entity1 = new ClientPhysical(1L, "123.456.789-00", 1L);
-        ClientPhysical entity2 = new ClientPhysical(1L, "123.456.789-00", 1L);
-        ClientPhysical entity3 = new ClientPhysical(2L, "987.654.321-00", 2L);
+        ClientPhysical entity1 = new ClientPhysical(1L, "123.456.789-00", LocalDate.now(), "SP 9999999", "SP", LocalDate.now(),  LocalDate.now(), 1L);
+        ClientPhysical entity2 = new ClientPhysical(1L, "123.456.789-00", LocalDate.now(), "SP 9999999", "SP", LocalDate.now(),  LocalDate.now(), 1L);
+        ClientPhysical entity3 = new ClientPhysical(2L, "123.456.789-00", LocalDate.now(), "SP 9999999", "SP", LocalDate.now(),  LocalDate.now(), 2L);
 
         // Act & Assert
         assertEquals(entity1, entity2);

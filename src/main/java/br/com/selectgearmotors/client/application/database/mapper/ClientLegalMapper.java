@@ -12,7 +12,10 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = CompanyIdFormatter.class)
 public interface ClientLegalMapper {
 
+    @Mapping(source = "socialName", target = "socialName")
+    @Mapping(source = "fantasyName", target = "fantasyName")
     @Mapping(source = "companyId", target = "companyId", qualifiedByName = "formatCompanyId")
+    @Mapping(source = "foundationDate", target = "foundationDate")
     @Mapping(source = "clientId", target = "clientEntity.id")
     ClientLegalEntity fromModelTpEntity(ClientLegal clientLegal);
 

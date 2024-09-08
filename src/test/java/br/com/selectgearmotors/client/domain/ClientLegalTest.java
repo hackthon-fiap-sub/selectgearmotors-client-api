@@ -3,6 +3,8 @@ package br.com.selectgearmotors.client.domain;
 import br.com.selectgearmotors.client.core.domain.ClientLegal;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientLegalTest {
@@ -10,7 +12,7 @@ public class ClientLegalTest {
     @Test
     public void testConstructor() {
         // Arrange & Act
-        ClientLegal entity = new ClientLegal(1L, "12.345.678/0001-00", 1L);
+        ClientLegal entity = new ClientLegal(1L, "", "", LocalDate.now(),"12.345.678/0001-00", 1L);
 
         // Assert
         assertEquals(1L, entity.getId());
@@ -37,7 +39,7 @@ public class ClientLegalTest {
     @Test
     public void testToString() {
         // Arrange
-        ClientLegal entity = new ClientLegal(1L, "12.345.678/0001-00", 1L);
+        ClientLegal entity = new ClientLegal(1L, "", "", LocalDate.now(),"12.345.678/0001-00", 1L);
 
         // Act
         String toString = entity.toString();
@@ -53,8 +55,8 @@ public class ClientLegalTest {
     @Test
     public void testHashCode() {
         // Arrange
-        ClientLegal entity1 = new ClientLegal(1L, "12.345.678/0001-00", 1L);
-        ClientLegal entity2 = new ClientLegal(1L, "12.345.678/0001-00", 1L);
+        ClientLegal entity1 = new ClientLegal(1L, "", "", LocalDate.now(),"12.345.678/0001-00", 1L);
+        ClientLegal entity2 = new ClientLegal(1L, "", "", LocalDate.now(),"12.345.678/0001-00", 1L);
 
         // Act & Assert
         assertEquals(entity1.hashCode(), entity2.hashCode());
@@ -63,9 +65,9 @@ public class ClientLegalTest {
     @Test
     public void testEquals() {
         // Arrange
-        ClientLegal entity1 = new ClientLegal(1L, "12.345.678/0001-00", 1L);
-        ClientLegal entity2 = new ClientLegal(1L, "12.345.678/0001-00", 1L);
-        ClientLegal entity3 = new ClientLegal(2L, "98.765.432/0001-00", 2L);
+        ClientLegal entity1 = new ClientLegal(1L, "", "", LocalDate.now(),"12.345.678/0001-00", 1L);
+        ClientLegal entity2 = new ClientLegal(1L, "", "", LocalDate.now(),"12.345.678/0001-00", 1L);
+        ClientLegal entity3 = new ClientLegal(2L, "", "", LocalDate.now(),"12.345.678/0001-00", 2L);
 
         // Act & Assert
         assertEquals(entity1, entity2);

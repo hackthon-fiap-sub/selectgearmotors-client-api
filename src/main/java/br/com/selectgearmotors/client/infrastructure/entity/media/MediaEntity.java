@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "tb_media")
+@Table(name = "tb_media", schema = "client")
 @Data
 @Builder
 @AllArgsConstructor

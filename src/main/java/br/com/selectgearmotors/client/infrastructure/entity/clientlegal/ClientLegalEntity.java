@@ -44,7 +44,6 @@ public class ClientLegalEntity extends AuditDomain {
     @Schema(description = "CompanyId number of the Cooperative.",
             example = "76.438.848/0001-69", required = false)
     @Column(name = "company_id")
-    @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$", message = "company Id number")
     @NotNull
     @Size(max = 14)
     private String companyId; //CNPJ
@@ -52,8 +51,8 @@ public class ClientLegalEntity extends AuditDomain {
     @Schema(description = "socialIdDispatchDate of the Psychological.",
             format = "ISO8601 date string",
             example = "13/09/2022", required = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.BRAZILIAN_DATE)
-    @DateTimeFormat(pattern = Constants.BRAZILIAN_DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.BRAZILIAN_DATE_WITHOUT_TOME)
+    @DateTimeFormat(pattern = Constants.BRAZILIAN_DATE_WITHOUT_TOME)
     @Column(name = "foundation_date")
     private LocalDate foundationDate; //Data de Nascimento
 

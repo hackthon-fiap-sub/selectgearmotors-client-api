@@ -13,7 +13,10 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = CompanyIdFormatter.class)
 public interface ClientLegalApiMapper {
 
+    @Mapping(source = "socialName", target = "socialName")
+    @Mapping(source = "fantasyName", target = "fantasyName")
     @Mapping(source = "companyId", target = "companyId")
+    @Mapping(source = "foundationDate", target = "foundationDate")
     @Mapping(source = "clientId", target = "clientId")
     ClientLegal fromRequest(ClientLegalRequest request);
 

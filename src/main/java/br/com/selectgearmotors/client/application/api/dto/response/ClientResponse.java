@@ -44,8 +44,6 @@ public class ClientResponse implements Serializable {
             example = "V$")
     private String mediaId;
 
-    private String socialId; //CPF
-
     private String mobile;
 
     private String clientTypeId;

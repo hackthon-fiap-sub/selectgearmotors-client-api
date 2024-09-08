@@ -130,7 +130,7 @@ public class ClientResources {
     public ResponseEntity<ClientResponse> findByCode(@PathVariable("code") String code) {
         Client clientSaved = findByIdClientPort.findByCode(code);
         if (clientSaved == null) {
-            throw new ResourceFoundException("Produto não encontrado ao buscar por código");
+            throw new ResourceFoundException("Produto nao encontrado ao buscar por codigo");
         }
 
         ClientResponse clientResponse = clientApiMapper.fromEntity(clientSaved);

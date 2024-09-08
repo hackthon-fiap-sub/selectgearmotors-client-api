@@ -1,4 +1,4 @@
-create table tb_media (
+create table client.tb_media (
     id bigserial not null,
     name varchar(255) not null,
     path varchar(10000) not null,

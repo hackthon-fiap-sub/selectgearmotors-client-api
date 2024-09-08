@@ -12,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -32,7 +33,7 @@ public class GenericResourcesAdvice {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorMessage> handleResourceFoundException(final ResourceFoundException ex) { //AlreadyExistsException
         ErrorMessage errorMessage = createErrorMessage(ex.getMessage());
-        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CNPJFoundException.class)
@@ -65,6 +66,12 @@ public class GenericResourcesAdvice {
 
         ErrorMessage errorMessage = createErrorMessage(message.toString());
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorMessage> handleNotFound(RuntimeException ex) {
+        ErrorMessage errorResponse = createErrorMessage(ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

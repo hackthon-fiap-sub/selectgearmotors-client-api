@@ -17,7 +17,6 @@ public interface ClientApiMapper {
     @Mapping(source = "email", target = "email")
     @Mapping(source = "mobile", target = "mobile")
     @Mapping(source = "mediaId", target = "mediaId")
-    @Mapping(source = "socialId", target = "socialId")
     @Mapping(source = "address", target = "address")
     @Mapping(source = "dataProcessingConsent", target = "dataProcessingConsent")
     @Mapping(source = "clientTypeId", target = "clientTypeId")
@@ -26,7 +25,6 @@ public interface ClientApiMapper {
     @InheritInverseConfiguration
     @Mapping(target = "id", source = "id")
     @Mapping(target = "code", source = "code")
-    @Mapping(target = "socialId", source = "socialId")
     @Mapping(target = "mobile", source = "mobile")
     @Mapping(target = "clientTypeId", source = "clientTypeId")
     @Mapping(target = "mediaId", source = "mediaId")

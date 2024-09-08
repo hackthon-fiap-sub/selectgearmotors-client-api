@@ -33,21 +33,19 @@ public class ClientPhysicalEntity extends AuditDomain {
     @Schema(description = "crp number of the Psychological.",
             example = "Jessica Abigail", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     @Column(name = "social_id")
-    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$", message = "CPF number")
     private String socialId; //CPF
 
     @Schema(description = "socialIdDispatchDate of the Psychological.",
             format = "ISO8601 date string",
             example = "13/09/2022", required = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.BRAZILIAN_DATE)
-    @DateTimeFormat(pattern = Constants.BRAZILIAN_DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.BRAZILIAN_DATE_WITHOUT_TOME)
+    @DateTimeFormat(pattern = Constants.BRAZILIAN_DATE_WITHOUT_TOME)
     @Column(name = "social_id_dispatch_date")
     private LocalDate socialIdDispatchDate; //CPF
 
     @Schema(description = "RG number of the Psychological.",
             example = "SP 9999999", required = false)
     @Column(name = "document_id")
-    @Pattern(regexp = "^(\\d{2}\\x2E\\d{3}\\x2E\\d{3}[-]\\d{1})$|^(\\d{2}\\x2E\\d{3}\\x2E\\d{3})$", message = "document id number")
     private String documentId; //RG
 
     @Schema(description = "crp number of the Psychological.",
@@ -59,16 +57,16 @@ public class ClientPhysicalEntity extends AuditDomain {
     @Schema(description = "documentDispatchDate of the Psychological.",
             format = "ISO8601 date string",
             example = "13/09/2022", required = true)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.BRAZILIAN_DATE)
-    @DateTimeFormat(pattern = Constants.BRAZILIAN_DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.BRAZILIAN_DATE_WITHOUT_TOME)
+    @DateTimeFormat(pattern = Constants.BRAZILIAN_DATE_WITHOUT_TOME)
     @Column(name = "document_dispatch_date")
     private LocalDate documentDispatchDate;
 
     @Schema(description = "socialIdDispatchDate of the Psychological.",
             format = "ISO8601 date string",
             example = "13/09/2022", required = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.BRAZILIAN_DATE)
-    @DateTimeFormat(pattern = Constants.BRAZILIAN_DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.BRAZILIAN_DATE_WITHOUT_TOME)
+    @DateTimeFormat(pattern = Constants.BRAZILIAN_DATE_WITHOUT_TOME)
     @Column(name = "birth_date")
     private LocalDate birthDate; //Data de Nascimento
 
