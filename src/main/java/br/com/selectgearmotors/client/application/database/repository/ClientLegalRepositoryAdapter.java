@@ -92,6 +92,15 @@ public class ClientLegalRepositoryAdapter implements ClientLegalRepositoryPort {
         return null;
     }
 
+    @Override
+    public ClientLegal findByClientId(Long id) {
+        Optional<ClientLegalEntity> buClientLegal = clientLegalRepository.findByClientEntityId(id);
+        if (buClientLegal.isPresent()) {
+            return clientLegalMapper.fromEntityToModel(buClientLegal.get());
+        }
+        return null;
+    }
+
     private void validateSavedEntity(ClientLegalEntity saved) {
         if (saved == null) {
             throw new ResourceFoundException("Erro ao salvar produto no repositorio: entidade salva é nula");

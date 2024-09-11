@@ -91,6 +91,18 @@ public class ClientPhysicalRepositoryAdapter implements ClientPhysicalRepository
         return null;
     }
 
+    @Override
+    public ClientPhysical findByClientId(Long id) {
+        Optional<ClientPhysicalEntity> resultById = clientPhysicalRepository.findByClientEntityId(id);
+        if (resultById.isPresent()) {
+            ClientPhysicalEntity productCategoryToChange = resultById.get();
+            productCategoryToChange.update(id, productCategoryToChange);
+
+            return clientPhysicalMapper.fromEntityToModel(clientPhysicalRepository.save(productCategoryToChange));
+        }
+        return null;
+    }
+
     private void validateSavedEntity(ClientPhysicalEntity saved) {
         if (saved == null) {
             throw new ResourceFoundException("Erro ao salvar produto no repositorio: entidade salva é nula");

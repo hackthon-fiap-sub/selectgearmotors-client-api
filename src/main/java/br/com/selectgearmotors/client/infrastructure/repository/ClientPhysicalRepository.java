@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ClientPhysicalRepository extends JpaRepository<ClientPhysicalEntity, Long> {
     Optional<ClientPhysicalEntity> findBySocialId(String socialId);
+    Optional<ClientPhysicalEntity> findByClientEntityId(Long id);
 }

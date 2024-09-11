@@ -10,4 +10,5 @@ public interface ClientPhysicalRepositoryPort {
     ClientPhysical findById(Long id);
     List<ClientPhysical> findAll();
     ClientPhysical update(Long id, ClientPhysical clientPhysical);
+    ClientPhysical findByClientId(Long id);
 }

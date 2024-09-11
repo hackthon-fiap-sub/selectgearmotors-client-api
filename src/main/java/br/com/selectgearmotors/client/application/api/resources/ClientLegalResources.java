@@ -136,6 +136,31 @@ public class ClientLegalResources {
         }
     }
 
+    @Operation(
+            summary = "Retrieve a ClientLegal by Id",
+            description = "Get a ClientLegal object by specifying its id. The response is Association object with id, title, description and published status.",
+            tags = {"productCategorys", "get"})
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ClientLegalResources.class), mediaType = "application/json")})
+    @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())})
+    @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})
+    @GetMapping("/client/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ClientLegalResponse> findByClientId(@PathVariable("id") Long id) {
+        try {
+            ClientLegal clientLegalSaved = findByIdClientLegalPort.findByClientId(id);
+            if (clientLegalSaved == null) {
+                throw new ResourceFoundException("Produto não encontrado ao buscar por código");
+            }
+
+            ClientLegalResponse clientLegalResponse = clientLegalApiMapper.fromEntity(clientLegalSaved);
+            return ResponseEntity.ok(clientLegalResponse);
+
+        } catch (Exception ex) {
+            log.error(Constants.ERROR_EXCEPTION_RESOURCE + "-findOne: {}", ex.getMessage());
+            return ResponseEntity.ok().build();
+        }
+    }
+
     @Operation(summary = "Delete a ClientLegal by Id", tags = {"productCategorytrus", "delete"})
     @ApiResponse(responseCode = "204", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})

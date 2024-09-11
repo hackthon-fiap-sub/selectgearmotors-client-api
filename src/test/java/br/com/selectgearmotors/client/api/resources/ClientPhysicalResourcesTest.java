@@ -109,8 +109,8 @@ class ClientPhysicalResourcesTest {
                 .socialId("967.382.310-32")
                 .build();
 
-        ClientPhysical save = service.save(build);
-        return save;
+        ClientPhysical saved = service.save(build);
+        return saved;
     }
 
     public ClientPhysicalEntity getClientPhysical(ClientEntity clientEntity) {

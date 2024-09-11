@@ -45,6 +45,11 @@ public class ClientPhysicalService implements CreateClientPhysicalPort, UpdateCl
     }
 
     @Override
+    public ClientPhysical findByClientId(Long id) {
+        return clientPhysicalRepository.findByClientId(id);
+    }
+
+    @Override
     public List<ClientPhysical> findAll() {
        return clientPhysicalRepository.findAll();
     }

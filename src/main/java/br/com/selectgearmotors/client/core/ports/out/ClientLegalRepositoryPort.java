@@ -10,4 +10,5 @@ public interface ClientLegalRepositoryPort {
     ClientLegal findById(Long id);
     List<ClientLegal> findAll();
     ClientLegal update(Long id, ClientLegal clientLegal);
+    ClientLegal findByClientId(Long id);
 }

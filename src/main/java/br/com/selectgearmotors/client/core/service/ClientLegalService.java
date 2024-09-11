@@ -44,6 +44,11 @@ public class ClientLegalService implements CreateClientLegalPort, UpdateClientLe
     }
 
     @Override
+    public ClientLegal findByClientId(Long id) {
+        return clientLegalRepository.findByClientId(id);
+    }
+
+    @Override
     public List<ClientLegal> findAll() {
        return clientLegalRepository.findAll();
     }

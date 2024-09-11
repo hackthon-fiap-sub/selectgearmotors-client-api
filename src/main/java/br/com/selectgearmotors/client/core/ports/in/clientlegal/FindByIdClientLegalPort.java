@@ -4,4 +4,5 @@ import br.com.selectgearmotors.client.core.domain.ClientLegal;
 
 public interface FindByIdClientLegalPort {
     ClientLegal findById(Long id);
+    ClientLegal findByClientId(Long id);
 }

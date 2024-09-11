@@ -136,6 +136,31 @@ public class ClientPhysicalResources {
         }
     }
 
+    @Operation(
+            summary = "Retrieve a ClientPhysical by Id",
+            description = "Get a ClientPhysical object by specifying its id. The response is Association object with id, title, description and published status.",
+            tags = {"productCategorys", "get"})
+    @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ClientPhysicalResources.class), mediaType = "application/json")})
+    @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())})
+    @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})
+    @GetMapping("/client/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ClientPhysicalResponse> findByClientId(@PathVariable("id") Long id) {
+        try {
+            ClientPhysical clientPhysicalSaved = findByIdClientPhysicalPort.findByClientId(id);
+            if (clientPhysicalSaved == null) {
+                throw new ResourceFoundException("Produto não encontrado ao buscar por código");
+            }
+
+            ClientPhysicalResponse clientPhysicalResponse = clientPhysicalApiMapper.fromEntity(clientPhysicalSaved);
+            return ResponseEntity.ok(clientPhysicalResponse);
+
+        } catch (Exception ex) {
+            log.error(Constants.ERROR_EXCEPTION_RESOURCE + "-findOne: {}", ex.getMessage());
+            return ResponseEntity.ok().build();
+        }
+    }
+
     @Operation(summary = "Delete a ClientPhysical by Id", tags = {"productCategorytrus", "delete"})
     @ApiResponse(responseCode = "204", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})
