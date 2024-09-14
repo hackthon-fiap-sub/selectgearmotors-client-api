@@ -84,7 +84,7 @@ management:
       probability: 1.0 # para enviar 100% da amostra'
   zipkin:
     tracing:
-      endpoint: http://54.85.99.121:9411/api/v2/spans # alterar o endereco do Zipkin'
+      endpoint: ${ZIPKIN_URL} # alterar o endereco do Zipkin'
   #security:
   #  oauth2:
   #    client:
@@ -177,7 +177,7 @@ management:
       probability: 1.0 # para enviar 100% da amostra'
   zipkin:
     tracing:
-      endpoint: http://54.85.99.121:9411/api/v2/spans # alterar o endereco do Zipkin'
+      endpoint: ${ZIPKIN_URL} # alterar o endereco do Zipkin'
   #security:
   #  oauth2:
   #    client:
