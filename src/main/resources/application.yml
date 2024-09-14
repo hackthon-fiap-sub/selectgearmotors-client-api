@@ -8,7 +8,12 @@ server:
 
 spring:
   application:
-    name: selectgearmotors-client-api
+    name: selectgearmotors-transaction-api
+  main:
+    allow-circular-references: true
+
+---
+spring:
   config:
     activate:
       on-profile: dev
@@ -102,8 +107,6 @@ management:
 #  user-pool-id: us-east-1_lLiNIC87U
 ---
 spring:
-  application:
-    name: selectgearmotors-client-api
   config:
     activate:
       on-profile: prod
