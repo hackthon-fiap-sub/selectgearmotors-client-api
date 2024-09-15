@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selectgearmotors-client-api
+  namespace: selectgearmotors-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selectgearmotors-client-api
+  template:
+    metadata:
+      labels:
+        app: selectgearmotors-client-api
+    spec:
+      containers:
+        - name: selectgearmotors-api
+          image: rogeriofontes/selectgearmotors-client-api:v4
+          ports:
+            - containerPort: 9924
+          envFrom:
+            - configMapRef:
+                name: selectgearmotors-client-api-config
+            - secretRef:
+                name: selectgearmotors-client-api-secrets
