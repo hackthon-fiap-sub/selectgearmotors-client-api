@@ -17,7 +17,7 @@ spec:
         - name: selectgearmotors-api
           image: rogeriofontes/selectgearmotors-client-api:v4
           ports:
-            - containerPort: 9924
+            - containerPort: 9914
           envFrom:
             - configMapRef:
                 name: selectgearmotors-client-api-config
