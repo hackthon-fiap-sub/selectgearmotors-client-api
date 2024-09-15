@@ -8,7 +8,7 @@ $ minikube start --vm-driver=virtualbox
 ```sh
 $ kubectl apply -f api-configmap.yaml
 $ kubectl apply -f api-deployment.yaml
-$ kubectl apply -f api-svc.yaml
+$ kubectl apply -f api-service.yaml
 ```
 #### Verificar os serviços criados:
 ```sh
@@ -16,7 +16,7 @@ $ kubectl get all
 ```
 #### Para excluir o Cluster
 ```sh
-$ kubectl delete -f api-svc.yaml
+$ kubectl delete -f api-service.yaml
 $ kubectl delete -f api-deployment.yaml
 $ kubectl delete -f api-configmap.yaml
 $ kubectl delete all --all
