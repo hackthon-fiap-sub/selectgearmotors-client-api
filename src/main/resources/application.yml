@@ -59,6 +59,11 @@ spring:
           acknowledge-mode: MANUAL
     region:
       static: us-east-1
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Nb0m60nkj
 aws:
   privacyNotification:
     queueName: ${AWS_SQS_QUEUE_NAME}
@@ -85,17 +90,18 @@ management:
   zipkin:
     tracing:
       endpoint: ${ZIPKIN_URL} # alterar o endereco do Zipkin'
-  #security:
-  #  oauth2:
-  #    client:
-  #      provider:
-  #        cognito:
-  #          issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_lLiNIC87U
-  #      registration:
-  #        cognito:
-  #          client-id: ${AWS_COGNITO_CLIENT_ID}
-  #          client-secret: ${AWS_COGNITO_CLIENT_SECRET}
-  #          scope: openid
+
+      #client:
+        #provider:
+          #cognito:
+            #issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Nb0m60nkj
+        #registration:
+          #cognito:
+            #client-id: ${AWS_COGNITO_CLIENT_ID}
+            #client-secret: ${AWS_COGNITO_CLIENT_SECRET}
+            #scope: openid
+            #redirect-uri: "{baseUrl}/login/oauth2/code/cognito"
+            #uthorization-grant-type: authorization_code
 #application:
 #  security:
 #    jwt:
@@ -104,7 +110,7 @@ management:
 #      refresh-token:
 #        expiration: 6048000000 # 70 days
 #cognito:
-#  user-pool-id: us-east-1_lLiNIC87U
+ # user-pool-id: us-east-1_lLiNIC87U
 ---
 spring:
   config:
@@ -152,6 +158,11 @@ spring:
           acknowledge-mode: MANUAL
     region:
       static: us-east-1
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Nb0m60nkj
 aws:
   privacyNotification:
     queueName: ${AWS_SQS_QUEUE_NAME}

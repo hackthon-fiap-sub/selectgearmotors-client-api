@@ -1,5 +1,7 @@
-package br.com.selectgearmotors.client.core.service;/*package br.com.postech.sevenfood.core.service;
+/*package br.com.selectgearmotors.client.core.service;
 
+import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
+import com.amazonaws.services.cognitoidp.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
