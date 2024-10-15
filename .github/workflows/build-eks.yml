@@ -42,7 +42,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: rogeriofontes/selectgearmotors-client-api:v4
+          tags: rogeriofontes/selectgearmotors-client-api:v5
 
       - name: Configure kubectl
         run: |

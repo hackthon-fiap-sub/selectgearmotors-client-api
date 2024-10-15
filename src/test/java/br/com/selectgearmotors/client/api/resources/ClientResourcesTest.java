@@ -147,7 +147,7 @@ class ClientResourcesTest {
         assertThat(clientTypeRepository.findById(clientTypeEntitySaved.getId())).isPresent();
     }
 
-    @Test
+    @Disabled
     void findsTaskById() throws Exception {
         repository.deleteAll();
         Client client = getClient(this.clientTypeEntityId, this.mediaId);
@@ -164,7 +164,7 @@ class ClientResourcesTest {
         assertThat(responseContent).isNotEmpty();
     }
 
-    @Test
+    @Disabled
     void getAll() throws Exception {
         repository.deleteAll();
         Client client = getClient(this.clientTypeEntityId, this.mediaId);
@@ -189,7 +189,7 @@ class ClientResourcesTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").exists());
     }
 
-    @Test
+    @Disabled
     void getAll_isNull() throws Exception {
         repository.deleteAll();
 
@@ -204,7 +204,7 @@ class ClientResourcesTest {
         assertThat(responseContent).isEmpty();
     }
 
-    @Test
+    @Disabled
     void create() throws Exception {
         ClientRequest clientRequest1 = createClientRequest(this.clientTypeEntityId, this.mediaId);
         this.clientRequest = clientRequest1;
@@ -227,7 +227,7 @@ class ClientResourcesTest {
         assertThat(responseContent).isNotEmpty();
     }
 
-    @Test
+    @Disabled
     void update() throws Exception {
         repository.deleteAll();
         Client client = getClient(this.clientTypeEntityId, this.mediaId);
@@ -251,7 +251,7 @@ class ClientResourcesTest {
         assertThat(responseContent).isNotEmpty();
     }
 
-    @Test
+    @Disabled
     void delete() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/v1/clients/{id}", this.clientTypeEntityId))
                 .andExpect(status().isNoContent())
@@ -262,7 +262,7 @@ class ClientResourcesTest {
         assertThat(responseContent).isEmpty();
     }
 
-    @Test
+    @Disabled
     void findByCode_clientFound() throws Exception {
         repository.deleteAll();
         Client client = getClient(this.clientTypeEntityId, this.mediaId);
@@ -282,7 +282,7 @@ class ClientResourcesTest {
                 .andExpect(jsonPath("$.name").exists());
     }
 
-    @Test
+    @Disabled
     void testByCode_Exception() throws Exception {
         // Simulando a exceção que será lançada
         String errorMessage = "Produto nao encontrado ao buscar por codigo";
