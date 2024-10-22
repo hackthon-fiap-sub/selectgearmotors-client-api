@@ -15,5 +15,5 @@ data:
   AWS_SQS_QUEUE_ARN: "arn:aws:sqs:us-east-1:147397866377:client_erase_privacy_notification"
   AWS_SQS_QUEUE_NAME: "client_erase_privacy_notification"
   AWS_SQS_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/147397866377/client_erase_privacy_notification"
-  SES_SMTP_USERNAME: "AKIASEUMY6OE2F5A7KIB"
+  SES_SMTP_USERNAME: ""
   SNS_TOPIC_EMAIL_ARN: "arn:aws:sns:us-east-1:147397866377:send_email_recycle_mais"
