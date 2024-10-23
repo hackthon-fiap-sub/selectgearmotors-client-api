@@ -74,8 +74,15 @@ api:
     url: ${API_GATEWAY_URL_PRIVACY_NOTIFICATION_STATUS}
 swagger:
   api:
-    url: https://localhost:9914/api
+    url: ${SWAGGER_API_URL}
 logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: DEBUG
+      springdoc: DEBUG
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 management:
@@ -173,8 +180,15 @@ api:
     url: ${API_GATEWAY_URL_PRIVACY_NOTIFICATION_STATUS}
 swagger:
   api:
-    url: https://localhost:9914/api
+    url: ${SWAGGER_API_URL}
 logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: DEBUG
+      springdoc: DEBUG
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 management:
