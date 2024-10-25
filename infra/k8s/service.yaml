@@ -4,12 +4,12 @@ metadata:
   name: api-gateway-client-service
   namespace: selectgearmotors-ns
 spec:
-  #type: LoadBalancer
-  type: NodePort
+  type: LoadBalancer
+  #type: NodePort
   ports:
       - protocol: "TCP"
         port: 9914
         targetPort: 9914
-        nodePort: 31001  # Ou outra porta disponível
+        #nodePort: 31001  # Ou outra porta disponível
   selector:
     app: selectgearmotors-client-api
