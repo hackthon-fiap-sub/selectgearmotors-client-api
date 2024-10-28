@@ -4,7 +4,8 @@ metadata:
   name: api-gateway-client-service
   namespace: selectgearmotors-ns
 spec:
-  type: LoadBalancer
+  type: ClusterIP
+  #type: LoadBalancer
   #type: NodePort
   ports:
       - protocol: "TCP"

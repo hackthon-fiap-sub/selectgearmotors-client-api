@@ -86,3 +86,7 @@ jobs:
       - name: Deploy API to EKS Cluster
         run: |
           kubectl apply -f infra/k8s/deployment.yaml -n selectgearmotors-ns
+
+      - name: Apply Kubernetes Ingress
+        run: |
+          kubectl apply -f infra/k8s/ingress.yaml -n selectgearmotors-ns
