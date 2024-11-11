@@ -3,14 +3,14 @@ kind: Service
 metadata:
   name: api-gateway-client-service
   namespace: selectgearmotors-ns
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb" # Para Network Load Balancer (opcional)
+    # service.beta.kubernetes.io/aws-load-balancer-internal: "true" # Para um Load Balancer interno (opcional)
 spec:
-  type: ClusterIP
-  #type: LoadBalancer
-  #type: NodePort
+  type: LoadBalancer
   ports:
-      - protocol: "TCP"
-        port: 9914
-        targetPort: 9914
-        #nodePort: 31001  # Ou outra porta disponível
+    - protocol: "TCP"
+      port: 9914         # Porta externa do LoadBalancer
+      targetPort: 9914   # Porta do Pod
   selector:
     app: selectgearmotors-client-api
