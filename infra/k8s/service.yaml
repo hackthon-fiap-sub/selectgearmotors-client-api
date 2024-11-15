@@ -1,11 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: api-gateway-client-service
+  name: api-client-service
   namespace: selectgearmotors-ns
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "nlb" # Para Network Load Balancer (opcional)
-    # service.beta.kubernetes.io/aws-load-balancer-internal: "true" # Para um Load Balancer interno (opcional)
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb" # Network Load Balancer
+    # Para Load Balancer interno (opcional)
+    # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    cloudmap.amazonaws.com/namespace: "selectgearmotors.local" # Namespace no AWS Cloud Map
+    cloudmap.amazonaws.com/service: "api-client"       # Nome do serviço no Cloud Map (opcional)
 spec:
   type: LoadBalancer
   ports:
