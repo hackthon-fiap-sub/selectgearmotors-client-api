@@ -10,7 +10,7 @@ spec:
   type: LoadBalancer
   ports:
     - protocol: "TCP"
-      port: 9914         # Porta externa do LoadBalancer
+      port: 80        # Porta externa do LoadBalancer
       targetPort: 9914   # Porta do Pod
   selector:
     app: selectgearmotors-client-api
