@@ -14,7 +14,7 @@ spec:
         app: selectgearmotors-client-api
     spec:
       containers:
-        - name: selectgearmotors-api
+        - name: client-api
           image: rogeriofontes/selectgearmotors-client-api:v7
           ports:
             - containerPort: 9914

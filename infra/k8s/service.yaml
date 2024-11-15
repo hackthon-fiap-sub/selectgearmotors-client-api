@@ -8,7 +8,8 @@ metadata:
     # Para Load Balancer interno (opcional)
     # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
     cloudmap.amazonaws.com/namespace: "selectgearmotors.local" # Namespace no AWS Cloud Map
-    cloudmap.amazonaws.com/service: "api-client"       # Nome do serviço no Cloud Map (opcional)
+    cloudmap.amazonaws.com/service: "api-client"       # Nome do serviço no Cloud Map
+    cloudmap.amazonaws.com/enable: "true"             # Habilitar registro no Cloud Map
 spec:
   type: LoadBalancer
   ports:
