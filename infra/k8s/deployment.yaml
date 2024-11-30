@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: client-api
-          image: rogeriofontes/selectgearmotors-client-api:v7
+          image: rogeriofontes/selectgearmotors-client-api:v8
           ports:
             - containerPort: 9914
           envFrom:
