@@ -2,6 +2,11 @@
 
 Este projeto é uma API desenvolvida em Spring Boot 3. Este README fornece instruções para desenvolvedores que desejam rodar o projeto localmente, incluindo como rodar o JAR usando Maven, configurar o ambiente no IntelliJ IDEA, utilizar arquivos `.env` para gerenciar variáveis de ambiente e como rodar o PostgreSQL e o SonarQube usando Docker Compose.
 
+## API do Backend - status
+[![Deploy to Amazon EKS](https://github.com/hackthon-fiap-sub/selectgearmotors-client-api/actions/workflows/build-eks.yml/badge.svg)](https://github.com/Grupo-G03-4SOAT-FIAP/Health-Med-api/actions/workflows/deploy.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=hackthon-fiap-sub_selectgearmotors-client-api&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=hackthon-fiap-sub_selectgearmotors-client-api)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?hackthon-fiap-sub_selectgearmotors-client-api&metric=coverage)](https://sonarcloud.io/summary/new_code?id=hackthon-fiap-sub_selectgearmotors-client-api)
+
 ## Pré-requisitos
 
 - Java 17+
