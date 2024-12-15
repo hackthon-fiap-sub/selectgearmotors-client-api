@@ -1,6 +1,10 @@
-# Spring Boot 3 API
+# Título do projeto
 
-Este projeto é uma API desenvolvida em Spring Boot 3. Este README fornece instruções para desenvolvedores que desejam rodar o projeto localmente, incluindo como rodar o JAR usando Maven, configurar o ambiente no IntelliJ IDEA, utilizar arquivos `.env` para gerenciar variáveis de ambiente e como rodar o PostgreSQL e o SonarQube usando Docker Compose.
+Um parágrafo da descrição do projeto vai aqui
+
+## Descrição breve do projeto
+
+Este projeto é uma API para cadastro de clientes. A API foi desenvolvida em Spring Boot 3. Este README fornece instruções para desenvolvedores que desejam rodar o projeto localmente, incluindo como rodar o JAR usando Maven, configurar o ambiente no IntelliJ IDEA, utilizar arquivos `.env` para gerenciar variáveis de ambiente e como rodar o PostgreSQL e o SonarQube usando Docker Compose.
 
 ## API do Backend - status
 [![Deploy to Amazon EKS](https://github.com/hackthon-fiap-sub/selectgearmotors-client-api/actions/workflows/build-eks.yml/badge.svg)](https://github.com/Grupo-G03-4SOAT-FIAP/Health-Med-api/actions/workflows/deploy.yml)
