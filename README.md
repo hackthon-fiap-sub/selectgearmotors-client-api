@@ -1,6 +1,6 @@
 # Título do projeto
 
-Um parágrafo da descrição do projeto vai aqui
+Api do projeto Select Gear Motos para cadastro de Clientes.
 
 ## Descrição breve do projeto
 
@@ -17,6 +17,12 @@ Este projeto é uma API para cadastro de clientes. A API foi desenvolvida em Spr
 - Maven 3.6+
 - Docker e Docker Compose
 - IntelliJ IDEA
+
+## 🚀 Começando
+
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
+
+Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar o projeto.
 
 ## Rodando o JAR usando Maven
 
