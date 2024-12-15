@@ -11,12 +11,16 @@ Este projeto é uma API para cadastro de clientes. A API foi desenvolvida em Spr
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=hackthon-fiap-sub_selectgearmotors-client-api&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=hackthon-fiap-sub_selectgearmotors-client-api)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=hackthon-fiap-sub_selectgearmotors-client-api&metric=coverage)](https://sonarcloud.io/summary/new_code?id=hackthon-fiap-sub_selectgearmotors-client-api)
 
-## Pré-requisitos
+### 📋 Pré-requisitos
 
+Ferramantas que precisam estar instaladas para rodar o projeto
+
+```
 - Java 17+
 - Maven 3.6+
 - Docker e Docker Compose
 - IntelliJ IDEA
+```
 
 ## 🚀 Começando
 
