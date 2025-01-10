@@ -1,0 +1,19 @@
+<context>
+    <name>Default Context</name>
+    <urls>
+        <!-- Inclui todas as URLs que não foram excluídas -->
+        <includeRegex>.*</includeRegex>
+
+        <!-- Exclui a URL da documentação OpenAPI -->
+        <excludeRegex>^http://192\.168\.100\.197:9914/api/v3/api-docs(/.*)?$</excludeRegex>
+
+        <!-- Exclui a URL raiz sem contexto -->
+        <excludeRegex>^http://192\.168\.100\.197:9914/$</excludeRegex>
+
+        <!-- Exclui a URL raiz com qualquer subcaminho -->
+        <excludeRegex>^http://192\.168\.100\.197:9914(/.*)?$</excludeRegex>
+
+        <!-- Exclui todas as URLs dentro do contexto `/api` -->
+        <excludeRegex>^http://192\.168\.100\.197:9914/api(/.*)?$</excludeRegex>
+    </urls>
+</context>

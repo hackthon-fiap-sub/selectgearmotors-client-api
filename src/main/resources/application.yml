@@ -4,7 +4,19 @@ server:
     context-path: /api
   error:
     whitelabel:
-      enabled: false
+      enabled: false               # Desativa a página de erro padrão do Spring Boot
+    include-stacktrace: never      # Nunca incluir rastreamento de pilha na resposta
+    include-message: never         # Nunca incluir mensagens de erro detalhadas
+    include-binding-errors: never  # Não incluir erros de validação detalhados
+    include-exception: false  # Não incluir erros de validação detalhados
+  response:
+    content-type: application/json
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
 
 spring:
   application:
@@ -77,12 +89,17 @@ swagger:
     url: ${SWAGGER_API_URL}
 logging:
   level:
+    root: WARN                    # Define o nível padrão de log como WARN para reduzir detalhes
     org:
       springframework:
         web:
           servlet:
             DispatcherServlet: DEBUG
-      springdoc: DEBUG
+      springdoc: ERROR
+    br:
+      com:
+        selectgearmotors:
+          client: DEBUG
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 management:
@@ -183,12 +200,17 @@ swagger:
     url: ${SWAGGER_API_URL}
 logging:
   level:
+    root: WARN                    # Define o nível padrão de log como WARN para reduzir detalhes
     org:
       springframework:
         web:
           servlet:
             DispatcherServlet: DEBUG
-      springdoc: DEBUG
+      springdoc: ERROR
+    br:
+      com:
+        selectgearmotors:
+          client: DEBUG
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 management:

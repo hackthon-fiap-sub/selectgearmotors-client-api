@@ -24,8 +24,12 @@ docker run -p 9914:9914 --env-file .env -e SPRING_PROFILES_ACTIVE=dev rogeriofon
 https://www.zaproxy.org/docs/docker/api-scan/
 https://www.zaproxy.org/docs/docker/about/
 ====
-docker run -u zap -p 8080:8080 -v "$(pwd)/docs/zap_workdir:/zap/wrk" -i ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py -t http://localhost:9914/api/v3/api-docs -f openapi -c zap-rules.conf -r zap_report_antes_op1.html
-docker run -u zap -p 8080:8080 -v "$(pwd)/docs/zap_workdir:/zap/wrk" -i ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py -t http://localhost:9914/api/v3/api-docs -f openapi -c zap-rules.conf -r zap_report_antes_op1.html
+chmod -R 777 $(pwd)/docs/zap_workdir
+
+docker run -u zap -p 8080:8080 -v "$(pwd)/docs/zap_workdir:/zap/wrk" -i ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py -t http://192.168.100.197:9914/api/v3/api-docs -f openapi -c zap-rules.conf -r zap_report_antes_op1.html
+docker run -u zap -p 8080:8080 -v "$(pwd)/docs/zap_workdir:/zap/wrk" -i ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py -t http://192.168.100.197:9914/api/v3/api-docs -f openapi -c zap-rules.conf -r zap_report_antes_op1.html
+
+docker run -u zap -p 8080:8080 -v "C:\dev\fiap\hacktown\api\selectgearmotors-client-api\docs\zap-scanning-report:/zap/wrk" -i ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py -t http://192.168.100.197:9914/api/v3/api-docs -f openapi -c zap-rules.conf -n zap-context.context -r zap_report_antes_op1.html
 
 http://localhost:9914/api/swagger-ui/index.html#/
 http://localhost:9914/api/v3/api-docs

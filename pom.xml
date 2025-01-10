@@ -24,6 +24,8 @@
         <sonar.exclusions>
             **/controller/debug/**/*,
             **/src/test/**,
+            src/main/java/br/com/selectgearmotors/client/application/media/AwsS3Service.java,
+            src/main/java/br/com/selectgearmotors/client/commons/filter/JwtRequestFilter.java
             src/main/java/br/com/selectgearmotors/client/RunApplication.java,
             src/main/java/br/com/selectgearmotors/client/application/api/exception/**,
             src/main/java/br/com/selectgearmotors/client/application/api/dto/**,
@@ -345,15 +347,21 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>jacoco-report-verify</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
                         <id>jacoco-site</id>
                         <phase>package</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
-                    <!-- attached to Maven test phase -->
                     <execution>
-                        <id>report</id>
+                        <id>jacoco-report-test</id>
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>

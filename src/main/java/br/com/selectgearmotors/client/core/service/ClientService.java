@@ -25,7 +25,6 @@ public class ClientService implements CreateClientPort, UpdateClientPort, FindBy
         if (byEmail != null) {
             throw new ResourceFoundException("Client already exists");
         }
-        client.setCode(UUID.randomUUID().toString());
         return clientRepository.save(client);
     }
 

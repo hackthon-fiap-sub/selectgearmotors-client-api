@@ -127,7 +127,7 @@ td {
 	</h2>
 
 	<h3>
-		Generated on Wed, 18 Dec 2024 14:14:18
+		Generated on Wed, 18 Dec 2024 19:57:18
 	</h3>
 
 	<h3>
@@ -168,7 +168,7 @@ td {
 					<div>Low</div>
 				</td>
 				<td align="center">
-					<div>2</div>
+					<div>3</div>
 				</td>
 			</tr>
 			<tr>
@@ -207,6 +207,11 @@ td {
 				<td align="center">1</td>
 			</tr>
 			<tr>
+				<td><a href="#100000">A Server Error response code was returned by the server</a></td>
+				<td align="center" class="risk-1">Low</td>
+				<td align="center">1</td>
+			</tr>
+			<tr>
 				<td><a href="#10023">Information Disclosure - Debug Error Messages</a></td>
 				<td align="center" class="risk-1">Low</td>
 				<td align="center">1</td>
@@ -214,12 +219,12 @@ td {
 			<tr>
 				<td><a href="#100001">Unexpected Content-Type was returned</a></td>
 				<td align="center" class="risk-1">Low</td>
-				<td align="center">64</td>
+				<td align="center">63</td>
 			</tr>
 			<tr>
 				<td><a href="#100000">A Client Error response code was returned by the server</a></td>
 				<td align="center" class="risk-0">Informational</td>
-				<td align="center">88</td>
+				<td align="center">86</td>
 			</tr>
 			<tr>
 				<td><a href="#10049">Non-Storable Content</a></td>
@@ -315,6 +320,90 @@ td {
 					<td width="20%">Plugin Id</td>
 					<td width="80%"><a
 						href="https://www.zaproxy.org/docs/alerts/90022/">90022</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-1"><a
+						id="100000"></a>
+						<div>Low</div></th>
+					<th class="risk-1">A Server Error response code was returned by the server</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>A response code of 500 was returned by the server.</div>
+							<br />
+						
+							<div>This may indicate that the application is failing to handle unexpected input correctly.</div>
+							<br />
+						
+							<div>Raised by the &#39;Alert on HTTP Response Code Error&#39; script</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="http://192.168.100.197:9914/api/v3/api-docs/">http://192.168.100.197:9914/api/v3/api-docs/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">HTTP/1.1 500</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">1</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%"></td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%"></td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/388.html">388</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">20</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/100000/">100000</a></td>
 				</tr>
 			</table>
 			<div class="spacer"></div>
@@ -892,7 +981,7 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
-						<td width="80%"><a href="http://192.168.100.197:9914/2933022331150015995">http://192.168.100.197:9914/2933022331150015995</a></td>
+						<td width="80%"><a href="http://192.168.100.197:9914/9154954724223750716">http://192.168.100.197:9914/9154954724223750716</a></td>
 					</tr>
 					<tr>
 						<td width="20%"
@@ -2163,37 +2252,6 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
-						<td width="80%"><a href="http://192.168.100.197:9914/WEB-INF/classes/10/1/28.class">http://192.168.100.197:9914/WEB-INF/classes/10/1/28.class</a></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Method</td>
-						<td width="80%">GET</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Parameter</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Attack</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Evidence</td>
-						<td width="80%">text/html</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Other Info</td>
-						<td width="80%"></td>
-					</tr>
-				
-					<tr>
-						<td width="20%"
-							class="indent1">URL</td>
 						<td width="80%"><a href="http://192.168.100.197:9914/WEB-INF/web.xml">http://192.168.100.197:9914/WEB-INF/web.xml</a></td>
 					</tr>
 					<tr>
@@ -2410,7 +2468,7 @@ td {
 				
 				<tr>
 					<td width="20%">Instances</td>
-					<td width="80%">64</td>
+					<td width="80%">63</td>
 				</tr>
 				<tr>
 					<td width="20%">Solution</td>
@@ -2928,7 +2986,7 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
-						<td width="80%"><a href="http://192.168.100.197:9914/2933022331150015995">http://192.168.100.197:9914/2933022331150015995</a></td>
+						<td width="80%"><a href="http://192.168.100.197:9914/9154954724223750716">http://192.168.100.197:9914/9154954724223750716</a></td>
 					</tr>
 					<tr>
 						<td width="20%"
@@ -3238,7 +3296,7 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
-						<td width="80%"><a href="http://192.168.100.197:9914/api/5802602801227297549">http://192.168.100.197:9914/api/5802602801227297549</a></td>
+						<td width="80%"><a href="http://192.168.100.197:9914/api/6269090864653360251">http://192.168.100.197:9914/api/6269090864653360251</a></td>
 					</tr>
 					<tr>
 						<td width="20%"
@@ -3486,38 +3544,7 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
-						<td width="80%"><a href="http://192.168.100.197:9914/api/v3/1010108329774252776">http://192.168.100.197:9914/api/v3/1010108329774252776</a></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Method</td>
-						<td width="80%">GET</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Parameter</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Attack</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Evidence</td>
-						<td width="80%">HTTP/1.1 401</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Other Info</td>
-						<td width="80%"></td>
-					</tr>
-				
-					<tr>
-						<td width="20%"
-							class="indent1">URL</td>
-						<td width="80%"><a href="http://192.168.100.197:9914/api/v3/api-docs/">http://192.168.100.197:9914/api/v3/api-docs/</a></td>
+						<td width="80%"><a href="http://192.168.100.197:9914/api/v3/5674510601705625242">http://192.168.100.197:9914/api/v3/5674510601705625242</a></td>
 					</tr>
 					<tr>
 						<td width="20%"
@@ -4788,37 +4815,6 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
-						<td width="80%"><a href="http://192.168.100.197:9914/WEB-INF/classes/10/1/28.class">http://192.168.100.197:9914/WEB-INF/classes/10/1/28.class</a></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Method</td>
-						<td width="80%">GET</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Parameter</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Attack</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Evidence</td>
-						<td width="80%">HTTP/1.1 404</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Other Info</td>
-						<td width="80%"></td>
-					</tr>
-				
-					<tr>
-						<td width="20%"
-							class="indent1">URL</td>
 						<td width="80%"><a href="http://192.168.100.197:9914/WEB-INF/web.xml">http://192.168.100.197:9914/WEB-INF/web.xml</a></td>
 					</tr>
 					<tr>
@@ -5190,7 +5186,7 @@ td {
 				
 				<tr>
 					<td width="20%">Instances</td>
-					<td width="80%">88</td>
+					<td width="80%">86</td>
 				</tr>
 				<tr>
 					<td width="20%">Solution</td>
